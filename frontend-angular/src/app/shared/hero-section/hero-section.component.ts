@@ -13,10 +13,10 @@ export class HeroSectionComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   startSurvey() {
-    // Si está autenticado, ir a surveys
+    // Si está autenticado, ir a dashboard
     // Si no está autenticado, ir a register
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/surveys']);
+      this.router.navigate(['/dashboard']);
     } else {
       this.router.navigate(['/register']);
     }

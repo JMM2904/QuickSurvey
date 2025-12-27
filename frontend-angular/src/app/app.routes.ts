@@ -17,7 +17,7 @@ export const routes: Routes = [
       import('./pages/register/register.component').then((m) => m.RegisterComponent),
   },
   {
-    path: 'surveys',
+    path: 'dashboard',
     loadComponent: () =>
       import('./pages/surveys/surveys.component').then((m) => m.SurveysComponent),
   },
