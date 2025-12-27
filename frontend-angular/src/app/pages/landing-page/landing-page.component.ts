@@ -8,8 +8,6 @@ import { FooterComponent } from '../../shared/footer/footer.component';
   standalone: true,
   imports: [NavbarComponent, HeroSectionComponent, FooterComponent],
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.scss']
+  styleUrls: ['./landing-page.component.scss'],
 })
-export class LandingPageComponent {
-
-}
+export class LandingPageComponent {}
