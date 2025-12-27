@@ -18,20 +18,20 @@
   &__brand {
     display: flex;
     align-items: center;
-    gap: $spacing-sm;
+    gap: 0.3rem;
     justify-content: center;
     margin-bottom: $spacing-sm;
   }
 
   &__logo {
-    height: 72px;
+    height: 96px;
     width: auto;
     object-fit: contain;
   }
 
   &__title {
     font-family: $font-primary;
-    font-size: 1.75rem;
+    font-size: 2.25rem;
     font-weight: 700;
     color: $text-dark;
     margin: 0;

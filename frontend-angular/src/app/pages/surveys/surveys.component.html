@@ -6,14 +6,16 @@
     </div>
 
     <div class="surveys__content">
-      <div *ngIf="surveys.length === 0" class="surveys__empty">
+      @if (surveys.length === 0) {
+      <div class="surveys__empty">
         <p>No tienes encuestas aún</p>
         <p class="surveys__empty-hint">Crea tu primera encuesta para comenzar</p>
       </div>
-
-      <div *ngIf="surveys.length > 0" class="surveys__list">
+      } @if (surveys.length > 0) {
+      <div class="surveys__list">
         <!-- Las encuestas se mostrarán aquí -->
       </div>
+      }
     </div>
   </div>
 </section>

@@ -4,8 +4,8 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: $bg-white;
-  box-shadow: $shadow-sm;
+  background: linear-gradient(180deg, #f4f6fb 0%, #eef1f7 100%);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: $spacing-lg 0; // más aire vertical
 
   &__container {
@@ -20,21 +20,21 @@
   &__logo {
     display: flex;
     align-items: center;
-    gap: $spacing-sm;
+    gap: 0.3rem;
     text-decoration: none;
     cursor: default;
 
     &-icon {
-      height: 48px;
+      height: 64px;
       width: auto;
-      max-width: 200px;
+      max-width: 250px;
       object-fit: contain;
       // sin efecto hover para header sobrio
     }
 
     &-text {
       font-family: $font-primary;
-      font-size: $font-size-medium;
+      font-size: 2rem;
       font-weight: 700;
       color: $text-dark;
       white-space: nowrap;
@@ -50,13 +50,13 @@
     font-family: $font-primary;
     font-size: 1.125rem; // enlaces más grandes (~18px)
     font-weight: 500;
-    color: $text-dark;
+    color: $primary-color;
     text-decoration: none;
     transition: color $transition-fast;
     cursor: pointer;
 
     &:hover {
-      color: darken($primary-color, 8%);
+      color: darken($primary-color, 10%);
       text-decoration: none; // sin subrayado en hover
     }
 

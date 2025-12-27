@@ -29,6 +29,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'email_verified_at' => now(),
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -57,6 +58,9 @@ class AuthController extends Controller
                 'email' => ['Las credenciales son incorrectas.'],
             ]);
         }
+
+        // Eliminar todos los tokens anteriores del usuario
+        $user->tokens()->delete();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
