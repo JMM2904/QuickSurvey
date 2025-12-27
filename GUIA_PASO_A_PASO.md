@@ -23,7 +23,9 @@
 ## 📱 Resumen del Proyecto
 
 ### ¿Qué es QuickSurvey?
+
 Una plataforma web donde los usuarios pueden:
+
 - Crear encuestas personalizadas
 - Responder encuestas de otros usuarios
 - Ver resultados en tiempo real con gráficos
@@ -32,12 +34,14 @@ Una plataforma web donde los usuarios pueden:
 ### Tecnologías Utilizadas
 
 **Backend:**
+
 - Laravel 12 (PHP 8.2)
 - MySQL 8.0
 - Eloquent ORM
 - Composer (gestor de dependencias)
 
 **Frontend:**
+
 - Angular 18
 - TypeScript
 - SCSS
@@ -45,6 +49,7 @@ Una plataforma web donde los usuarios pueden:
 - npm (gestor de paquetes)
 
 **DevOps:**
+
 - Git + GitHub
 - XAMPP (desarrollo local)
 - PowerShell (terminal)
@@ -54,6 +59,7 @@ Una plataforma web donde los usuarios pueden:
 ## ✅ Fase 1: Backend - Completado
 
 ### Paso 1.1: Configuración Inicial
+
 ```bash
 # Ubicación: C:\Users\javie\OneDrive\Escritorio\QuickSurvey
 # El proyecto Laravel ya está inicializado en backend-laravel/
@@ -64,6 +70,7 @@ Una plataforma web donde los usuarios pueden:
 ```
 
 ### Paso 1.2: Base de Datos
+
 ```bash
 # El esquema ya está creado con migraciones
 
@@ -76,20 +83,22 @@ Una plataforma web donde los usuarios pueden:
 
 **Descripción de tablas:**
 
-| Tabla | Propósito | Campos Principales |
-|-------|-----------|-------------------|
-| `users` | Usuarios del sistema | id, name, email, password, created_at, updated_at |
-| `surveys` | Encuestas creadas | id, user_id (FK), title, color, image, created_at, updated_at |
-| `survey_options` | Opciones de respuesta | id, survey_id (FK), text, created_at, updated_at |
-| `votes` | Votos registrados | id, survey_id (FK), user_id (FK), survey_option_id (FK), timestamps |
+| Tabla            | Propósito             | Campos Principales                                                  |
+| ---------------- | --------------------- | ------------------------------------------------------------------- |
+| `users`          | Usuarios del sistema  | id, name, email, password, created_at, updated_at                   |
+| `surveys`        | Encuestas creadas     | id, user_id (FK), title, color, image, created_at, updated_at       |
+| `survey_options` | Opciones de respuesta | id, survey_id (FK), text, created_at, updated_at                    |
+| `votes`          | Votos registrados     | id, survey_id (FK), user_id (FK), survey_option_id (FK), timestamps |
 
 **Restricciones:**
+
 - `votes` tiene UNIQUE(survey_id, user_id) → Un usuario solo puede votar una vez por encuesta
 - Cascading DELETE en todas las ForeignKeys
 
 ### Paso 1.3: Modelos Eloquent
 
 **`app/Models/Survey.php`** (Encuesta)
+
 ```php
 <?php
 
@@ -122,6 +131,7 @@ class Survey extends Model
 ```
 
 **`app/Models/SurveyOption.php`** (Opción de Encuesta)
+
 ```php
 <?php
 
@@ -148,6 +158,7 @@ class SurveyOption extends Model
 ```
 
 **`app/Models/Vote.php`** (Voto)
+
 ```php
 <?php
 
@@ -181,6 +192,7 @@ class Vote extends Model
 ```
 
 **`app/Models/User.php`** (Usuario) - Extensión
+
 ```php
 <?php
 
@@ -211,6 +223,7 @@ class User extends Authenticatable
 ### Paso 1.4: Migraciones Ejecutadas
 
 **Comandos ejecutados:**
+
 ```bash
 # Navegar a backend-laravel
 cd backend-laravel
@@ -223,6 +236,7 @@ php artisan migrate:status
 ```
 
 **Migraciones creadas:**
+
 1. `0001_01_01_000000_create_users_table.php` - Tabla users
 2. `0001_01_01_000001_create_cache_table.php` - Cache
 3. `0001_01_01_000002_create_jobs_table.php` - Jobs
@@ -233,6 +247,7 @@ php artisan migrate:status
 ### Paso 1.5: Seeders de Datos de Prueba
 
 **`database/seeders/DatabaseSeeder.php`** (ya ejecutado)
+
 ```php
 <?php
 
@@ -311,6 +326,7 @@ class DatabaseSeeder extends Seeder
 ```
 
 **Datos de prueba creados:**
+
 - 2 usuarios: Juan Pérez, María García
 - 2 encuestas: "Lenguaje favorito", "Frontend vs Backend"
 - 6 opciones de respuesta (3 por encuesta)
@@ -319,6 +335,7 @@ class DatabaseSeeder extends Seeder
 ### Paso 1.6: Verificación del Backend
 
 **Comando para verificar estado de migraciones:**
+
 ```bash
 cd backend-laravel
 php artisan migrate:status
@@ -334,6 +351,7 @@ php artisan migrate:status
 ```
 
 **Verificación via Tinker (REPL de Laravel):**
+
 ```bash
 php artisan tinker
 
@@ -353,6 +371,7 @@ exit
 ```
 
 **Ruta de prueba (ya creada en `routes/web.php`):**
+
 ```bash
 # Visitando en navegador o curl:
 http://localhost:8000/test/survey
@@ -380,6 +399,7 @@ ng version
 ### Paso 2.2: Crear Componentes Base
 
 **Componente principal: LandingPageComponent**
+
 ```bash
 # Desde frontend-angular/
 ng generate component pages/landing-page
@@ -389,6 +409,7 @@ ng generate component shared/footer
 ```
 
 **Resultado esperado:**
+
 ```
 src/
 ├── app/
@@ -407,17 +428,18 @@ src/
 ### Paso 2.3: Diseño SCSS (Estilos)
 
 **Crear archivo de variables: `src/assets/scss/_variables.scss`**
+
 ```scss
 // Colores
-$primary-color: #5112FF;      // Púrpura
-$secondary-color: #FF6B35;    // Naranja
-$text-dark: #1a1a1a;          // Texto oscuro
-$text-light: #ffffff;         // Texto claro
-$bg-light: #f5f5f5;           // Fondo claro
-$bg-white: #ffffff;           // Blanco puro
+$primary-color: #5112ff; // Púrpura
+$secondary-color: #ff6b35; // Naranja
+$text-dark: #1a1a1a; // Texto oscuro
+$text-light: #ffffff; // Texto claro
+$bg-light: #f5f5f5; // Fondo claro
+$bg-white: #ffffff; // Blanco puro
 
 // Tipografía
-$font-primary: 'Familjen Grotesk', sans-serif;
+$font-primary: "Familjen Grotesk", sans-serif;
 $font-size-large: 3.5rem;
 $font-size-medium: 1.5rem;
 $font-size-small: 1rem;
@@ -435,8 +457,9 @@ $breakpoint-desktop: 1024px;
 ```
 
 **Navbar Component: `navbar.component.scss`**
+
 ```scss
-@import '../../../assets/scss/variables';
+@import "../../../assets/scss/variables";
 
 .navbar {
   display: flex;
@@ -493,8 +516,9 @@ $breakpoint-desktop: 1024px;
 ```
 
 **Hero Section: `hero-section.component.scss`**
+
 ```scss
-@import '../../../assets/scss/variables';
+@import "../../../assets/scss/variables";
 
 .hero {
   display: flex;
@@ -558,13 +582,23 @@ $breakpoint-desktop: 1024px;
 ### Paso 2.4: Implementar Componentes
 
 **`navbar.component.html`**
+
 ```html
 <nav class="navbar">
   <div class="logo">
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
       <!-- Logo SVG aquí -->
-      <circle cx="20" cy="20" r="18" fill="#5112FF"/>
-      <text x="20" y="26" text-anchor="middle" fill="white" font-size="16" font-weight="bold">QS</text>
+      <circle cx="20" cy="20" r="18" fill="#5112FF" />
+      <text
+        x="20"
+        y="26"
+        text-anchor="middle"
+        fill="white"
+        font-size="16"
+        font-weight="bold"
+      >
+        QS
+      </text>
     </svg>
     QuickSurvey
   </div>
@@ -582,21 +616,19 @@ $breakpoint-desktop: 1024px;
 ```
 
 **`hero-section.component.html`**
+
 ```html
 <section class="hero">
-  <h1 class="hero-title">
-    Crea y comparte encuestas en segundos
-  </h1>
+  <h1 class="hero-title">Crea y comparte encuestas en segundos</h1>
   <p class="hero-subtitle">
     Recoge opiniones de tus amigos y colegas de forma rápida y sencilla
   </p>
-  <button class="cta-button" (click)="startSurvey()">
-    Comienza Ahora
-  </button>
+  <button class="cta-button" (click)="startSurvey()">Comienza Ahora</button>
 </section>
 ```
 
 **`landing-page.component.html`**
+
 ```html
 <div class="landing-page">
   <app-navbar></app-navbar>
@@ -606,6 +638,7 @@ $breakpoint-desktop: 1024px;
 ```
 
 **`landing-page.component.scss`**
+
 ```scss
 .landing-page {
   display: flex;
@@ -617,23 +650,28 @@ $breakpoint-desktop: 1024px;
 ### Paso 2.5: Configurar Rutas
 
 **`app.routes.ts` o `app.module.ts` (dependiendo versión Angular)**
+
 ```typescript
-import { Routes } from '@angular/router';
-import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { Routes } from "@angular/router";
+import { LandingPageComponent } from "./pages/landing-page/landing-page.component";
 
 export const routes: Routes = [
   {
-    path: '',
-    component: LandingPageComponent
+    path: "",
+    component: LandingPageComponent,
   },
   {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
+    path: "login",
+    loadComponent: () =>
+      import("./pages/login/login.component").then((m) => m.LoginComponent),
   },
   {
-    path: 'surveys',
-    loadComponent: () => import('./pages/surveys/surveys.component').then(m => m.SurveysComponent)
-  }
+    path: "surveys",
+    loadComponent: () =>
+      import("./pages/surveys/surveys.component").then(
+        (m) => m.SurveysComponent
+      ),
+  },
 ];
 ```
 
@@ -650,6 +688,7 @@ ng serve --open
 ```
 
 **Verificar:**
+
 - ✅ Navbar visible con logo y enlaces
 - ✅ Hero section con título, subtítulo y botón
 - ✅ Colores correctos (#5112FF en botón)
@@ -663,12 +702,14 @@ ng serve --open
 ### Paso 3.1: Crear Controladores
 
 **Generar controlador de Surveys:**
+
 ```bash
 cd backend-laravel
 php artisan make:controller Api/SurveyController --api
 ```
 
 **`app/Http/Controllers/Api/SurveyController.php`**
+
 ```php
 <?php
 
@@ -773,6 +814,7 @@ class SurveyController extends Controller
 ### Paso 3.2: Registrar Rutas API
 
 **`routes/api.php`**
+
 ```php
 <?php
 
@@ -823,6 +865,7 @@ php artisan migrate
 ### Paso 4.2: Crear Controlador de Autenticación
 
 **`app/Http/Controllers/Api/AuthController.php`**
+
 ```php
 <?php
 
@@ -892,6 +935,7 @@ class AuthController extends Controller
 ### Paso 4.3: Rutas de Autenticación
 
 **Agregar a `routes/api.php`:**
+
 ```php
 Route::prefix('v1')->group(function () {
     // Autenticación pública
@@ -909,6 +953,7 @@ Route::prefix('v1')->group(function () {
 ### Paso 4.4: Componentes Angular Login/Register
 
 **Generar componentes:**
+
 ```bash
 cd frontend-angular
 ng generate component pages/login
@@ -916,18 +961,19 @@ ng generate component pages/register
 ```
 
 **`login.component.html`**
+
 ```html
 <div class="auth-container">
   <div class="auth-card">
     <h2>Inicia Sesión</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <input 
-        type="email" 
+      <input
+        type="email"
         placeholder="Correo electrónico"
         formControlName="email"
       />
-      <input 
-        type="password" 
+      <input
+        type="password"
         placeholder="Contraseña"
         formControlName="password"
       />
@@ -939,16 +985,17 @@ ng generate component pages/register
 ```
 
 **`login.component.ts`**
+
 ```typescript
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -959,22 +1006,21 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(8)]],
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.http.post('/api/v1/auth/login', this.loginForm.value)
-        .subscribe(
-          (response: any) => {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('user', JSON.stringify(response.user));
-            this.router.navigate(['/surveys']);
-          },
-          error => console.error('Error:', error)
-        );
+      this.http.post("/api/v1/auth/login", this.loginForm.value).subscribe(
+        (response: any) => {
+          localStorage.setItem("token", response.token);
+          localStorage.setItem("user", JSON.stringify(response.user));
+          this.router.navigate(["/surveys"]);
+        },
+        (error) => console.error("Error:", error)
+      );
     }
   }
 }
@@ -987,20 +1033,22 @@ export class LoginComponent {
 ### Paso 5.1: Página de Encuestas
 
 **Crear componente:**
+
 ```bash
 ng generate component pages/surveys-list
 ng generate component shared/survey-card
 ```
 
 **`surveys-list.component.ts`**
+
 ```typescript
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-surveys-list',
-  templateUrl: './surveys-list.component.html',
-  styleUrls: ['./surveys-list.component.scss']
+  selector: "app-surveys-list",
+  templateUrl: "./surveys-list.component.html",
+  styleUrls: ["./surveys-list.component.scss"],
 })
 export class SurveysListComponent implements OnInit {
   surveys: any[] = [];
@@ -1013,17 +1061,16 @@ export class SurveysListComponent implements OnInit {
   }
 
   loadSurveys() {
-    this.http.get<any>('/api/v1/surveys')
-      .subscribe(
-        (response) => {
-          this.surveys = response.data;
-          this.loading = false;
-        },
-        (error) => {
-          console.error('Error:', error);
-          this.loading = false;
-        }
-      );
+    this.http.get<any>("/api/v1/surveys").subscribe(
+      (response) => {
+        this.surveys = response.data;
+        this.loading = false;
+      },
+      (error) => {
+        console.error("Error:", error);
+        this.loading = false;
+      }
+    );
   }
 }
 ```
@@ -1031,77 +1078,72 @@ export class SurveysListComponent implements OnInit {
 ### Paso 5.2: Página de Resultados con Chart.js
 
 **Instalar Chart.js:**
+
 ```bash
 npm install chart.js ng2-charts
 ```
 
 **`survey-results.component.ts`**
+
 ```typescript
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Chart } from 'chart.js/auto';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { Chart } from "chart.js/auto";
 
 @Component({
-  selector: 'app-survey-results',
-  templateUrl: './survey-results.component.html',
-  styleUrls: ['./survey-results.component.scss']
+  selector: "app-survey-results",
+  templateUrl: "./survey-results.component.html",
+  styleUrls: ["./survey-results.component.scss"],
 })
 export class SurveyResultsComponent implements OnInit {
   survey: any;
   chart: Chart | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient
-  ) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get("id");
     this.loadSurvey(id);
   }
 
   loadSurvey(id: string | null) {
     if (!id) return;
 
-    this.http.get(`/api/v1/surveys/${id}`)
-      .subscribe(
-        (survey: any) => {
-          this.survey = survey;
-          this.createChart();
-        },
-        error => console.error('Error:', error)
-      );
+    this.http.get(`/api/v1/surveys/${id}`).subscribe(
+      (survey: any) => {
+        this.survey = survey;
+        this.createChart();
+      },
+      (error) => console.error("Error:", error)
+    );
   }
 
   createChart() {
-    const ctx = document.getElementById('resultsChart') as HTMLCanvasElement;
-    
+    const ctx = document.getElementById("resultsChart") as HTMLCanvasElement;
+
     const labels = this.survey.options.map((opt: any) => opt.text);
     const data = this.survey.options.map((opt: any) => opt.votes_count);
 
     this.chart = new Chart(ctx, {
-      type: 'pie',
+      type: "pie",
       data: {
         labels,
-        datasets: [{
-          data,
-          backgroundColor: [
-            '#5112FF',
-            '#FF6B35',
-            '#4ECDC4',
-            '#FFD93D',
-          ],
-        }]
+        datasets: [
+          {
+            data,
+            backgroundColor: ["#5112FF", "#FF6B35", "#4ECDC4", "#FFD93D"],
+          },
+        ],
       },
       options: {
         responsive: true,
         plugins: {
           legend: {
-            position: 'bottom',
-          }
-        }
-      }
+            position: "bottom",
+          },
+        },
+      },
     });
   }
 }
@@ -1114,6 +1156,7 @@ export class SurveyResultsComponent implements OnInit {
 ### Paso 6.1: Checklist de Funcionalidades
 
 **Backend:**
+
 - [ ] Migraciones ejecutadas correctamente
 - [ ] Seeders populan datos de prueba
 - [ ] Modelos con relaciones funcionan
@@ -1121,6 +1164,7 @@ export class SurveyResultsComponent implements OnInit {
 - [ ] Validación de votos duplicados funciona
 
 **Frontend:**
+
 - [ ] Landing page se visualiza correctamente
 - [ ] Componentes responsivos en móvil
 - [ ] Formularios de login/registro funcionan
@@ -1150,11 +1194,13 @@ npm run test                        # Ejecuta tests (si existen)
 **Escenarios a probar:**
 
 1. **Crear Encuesta:**
+
    - Ir a "Crear Encuesta"
    - Ingresar título, color, mínimo 2 opciones
    - Verificar que se guarda en BD
 
 2. **Votar:**
+
    - Navegar a encuesta
    - Seleccionar opción
    - Verificar que no permite votar 2 veces (UNIQUE constraint)
@@ -1171,6 +1217,7 @@ npm run test                        # Ejecuta tests (si existen)
 ### Paso 7.1: Preparar para Producción
 
 **Backend:**
+
 ```bash
 cd backend-laravel
 
@@ -1184,6 +1231,7 @@ npm run build
 ```
 
 **Frontend:**
+
 ```bash
 cd frontend-angular
 
@@ -1213,6 +1261,7 @@ git push origin feature/landing-page
 ### Paso 7.3: Opciones de Hosting
 
 **Backend Laravel (opciones):**
+
 - Heroku (limitado)
 - DigitalOcean App Platform
 - AWS Lambda
@@ -1220,6 +1269,7 @@ git push origin feature/landing-page
 - Vercel (experimental)
 
 **Frontend Angular:**
+
 - Vercel
 - Netlify
 - Firebase Hosting
@@ -1233,16 +1283,19 @@ git push origin feature/landing-page
 ### Puntos Clave
 
 1. **Base de Datos:**
+
    - UNIQUE(survey_id, user_id) previene votos duplicados
    - Cascading DELETE mantiene integridad
    - Usa migraciones, no modifiques SQL directamente
 
 2. **API:**
+
    - `/api/v1/` es el prefijo para versioning
    - Todos los endpoints retornan JSON
    - Validación en controlador antes de guardar
 
 3. **Frontend:**
+
    - Usa servicios Angular para llamadas HTTP
    - Almacena token en localStorage
    - Interceptores para agregar Authorization header
@@ -1264,15 +1317,15 @@ git push origin feature/landing-page
 
 ## ⏱️ Timeline Sugerido
 
-| Fase | Descripción | Duración | Fecha |
-|------|-------------|----------|-------|
-| ✅ 1 | Backend completo | 3-4 días | 25 dic - 28 dic |
-| 2️⃣ | Landing page frontend | 1-2 días | 29 dic - 30 dic |
-| 3️⃣ | API REST endpoints | 1 día | 31 dic |
-| 4️⃣ | Autenticación | 1-2 días | 1 ene - 2 ene |
-| 5️⃣ | Funcionalidades principales | 2-3 días | 3 ene - 5 ene |
-| 6️⃣ | Testing y bugfixes | 1 día | 6 ene |
-| 7️⃣ | Despliegue final | 0.5-1 día | 7 ene |
+| Fase | Descripción                 | Duración  | Fecha           |
+| ---- | --------------------------- | --------- | --------------- |
+| ✅ 1 | Backend completo            | 3-4 días  | 25 dic - 28 dic |
+| 2️⃣   | Landing page frontend       | 1-2 días  | 29 dic - 30 dic |
+| 3️⃣   | API REST endpoints          | 1 día     | 31 dic          |
+| 4️⃣   | Autenticación               | 1-2 días  | 1 ene - 2 ene   |
+| 5️⃣   | Funcionalidades principales | 2-3 días  | 3 ene - 5 ene   |
+| 6️⃣   | Testing y bugfixes          | 1 día     | 6 ene           |
+| 7️⃣   | Despliegue final            | 0.5-1 día | 7 ene           |
 
 **Total:** ~10-14 días (aproximadamente para terminar el 7 de enero)
 
@@ -1281,6 +1334,7 @@ git push origin feature/landing-page
 ## 📞 Soporte Rápido
 
 **Comando para resetear todo (cuidado):**
+
 ```bash
 # Backend
 cd backend-laravel
@@ -1295,20 +1349,16 @@ ng serve
 
 **Errores comunes:**
 
-| Error | Solución |
-|-------|----------|
+| Error                         | Solución                                        |
+| ----------------------------- | ----------------------------------------------- |
 | "SQLSTATE Database not found" | Verificar MySQL está corriendo, `.env` correcto |
-| "Class not found" | `php artisan tinker` - verificar ruta de import |
-| "CORS errors" | Agregar headers en Laravel `config/cors.php` |
-| "npm module not found" | `npm install` nuevamente en frontend-angular |
-| "Cannot find template" | Verificar ruta en `selector` del componente |
+| "Class not found"             | `php artisan tinker` - verificar ruta de import |
+| "CORS errors"                 | Agregar headers en Laravel `config/cors.php`    |
+| "npm module not found"        | `npm install` nuevamente en frontend-angular    |
+| "Cannot find template"        | Verificar ruta en `selector` del componente     |
 
 ---
 
 **Última actualización:** 25 de diciembre de 2025  
 **Versión:** 1.0  
-**Autor:** GitHub Copilot + JMM2904
-
----
-
-¡Buena suerte con QuickSurvey! 🚀
+**Autor:** JMM2904

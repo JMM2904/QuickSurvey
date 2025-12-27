@@ -1,0 +1,122 @@
+@import '../../../assets/scss/variables';
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+
+  &__container {
+    width: 480px;
+    max-width: 92vw;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    justify-content: center;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__logo {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  &__title {
+    font-family: $font-primary;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  &__error {
+    background-color: #fee;
+    color: #c33;
+    padding: 0.8rem 1rem;
+    border-radius: $border-radius-md;
+    font-family: $font-primary;
+    font-size: $font-size-small;
+    border-left: 3px solid #c33;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 1.1rem 1.3rem;
+    border-radius: $border-radius-md;
+    border: 1px solid #e6e6e6;
+    font-family: $font-primary;
+    font-size: $font-size-base;
+    outline: none;
+    transition: box-shadow $transition-fast, border-color $transition-fast;
+
+    &::placeholder {
+      color: #b3b3b3;
+    }
+
+    &:focus {
+      border-color: lighten($primary-color, 10%);
+      box-shadow: 0 0 0 3px rgba(81, 18, 255, 0.15);
+    }
+  }
+
+  &__button {
+    background-color: $primary-color;
+    color: $text-light;
+    border: none;
+    padding: 1.1rem 1.8rem;
+    border-radius: $border-radius-md;
+    font-family: $font-primary;
+    font-size: $font-size-base;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform $transition-normal, box-shadow $transition-normal,
+      background-color $transition-normal;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background-color: darken($primary-color, 6%);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__hint {
+    text-align: center;
+    font-family: $font-primary;
+    font-size: $font-size-small;
+    color: $text-dark;
+    margin-top: $spacing-sm;
+  }
+
+  &__link {
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+      color: darken($primary-color, 10%);
+      text-decoration: underline;
+    }
+  }
+}

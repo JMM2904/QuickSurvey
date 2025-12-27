@@ -6,17 +6,19 @@ export const routes: Routes = [
     path: '',
     component: LandingPageComponent,
   },
-  // Rutas adicionales a implementar:
-  // {
-  //   path: 'login',
-  //   loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
-  // },
-  // {
-  //   path: 'register',
-  //   loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent)
-  // },
-  // {
-  //   path: 'surveys',
-  //   loadComponent: () => import('./pages/surveys/surveys.component').then(m => m.SurveysComponent)
-  // }
+  // Autenticación
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./pages/register/register.component').then((m) => m.RegisterComponent),
+  },
+  {
+    path: 'surveys',
+    loadComponent: () =>
+      import('./pages/surveys/surveys.component').then((m) => m.SurveysComponent),
+  },
 ];

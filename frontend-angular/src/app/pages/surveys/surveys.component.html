@@ -1,0 +1,19 @@
+<section class="surveys">
+  <div class="surveys__container">
+    <div class="surveys__header">
+      <h1>Mis Encuestas</h1>
+      <button class="surveys__btn-create" (click)="createSurvey()">+ Nueva Encuesta</button>
+    </div>
+
+    <div class="surveys__content">
+      <div *ngIf="surveys.length === 0" class="surveys__empty">
+        <p>No tienes encuestas aún</p>
+        <p class="surveys__empty-hint">Crea tu primera encuesta para comenzar</p>
+      </div>
+
+      <div *ngIf="surveys.length > 0" class="surveys__list">
+        <!-- Las encuestas se mostrarán aquí -->
+      </div>
+    </div>
+  </div>
+</section>

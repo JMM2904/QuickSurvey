@@ -1,0 +1,55 @@
+<section class="register">
+  <div class="register__container">
+    <div class="register__brand">
+      <img src="assets/images/logo.png" alt="QuickSurvey Logo" class="register__logo" />
+      <h1 class="register__title">QuickSurvey</h1>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="register__form">
+      <div *ngIf="errorMessage" class="register__error">
+        {{ errorMessage }}
+      </div>
+
+      <input
+        type="text"
+        [(ngModel)]="name"
+        name="name"
+        class="register__input"
+        placeholder="Nombre"
+        [disabled]="isLoading"
+        required
+      />
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        class="register__input"
+        placeholder="Email"
+        [disabled]="isLoading"
+        required
+      />
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        class="register__input"
+        placeholder="Contraseña"
+        [disabled]="isLoading"
+        required
+      />
+      <input
+        type="password"
+        [(ngModel)]="confirm"
+        name="confirm"
+        class="register__input"
+        placeholder="Confirmar contraseña"
+        [disabled]="isLoading"
+        required
+      />
+
+      <button type="submit" class="register__button" [disabled]="isLoading">
+        {{ isLoading ? 'Registrando...' : 'Registrarse' }}
+      </button>
+    </form>
+  </div>
+</section>
