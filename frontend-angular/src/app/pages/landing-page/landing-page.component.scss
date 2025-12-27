@@ -1,0 +1,21 @@
+@import '../../../assets/scss/variables';
+
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; // ocupa toda la pantalla
+  overflow: hidden; // desactiva scroll solo en landing
+
+  app-navbar {
+    flex-shrink: 0;
+  }
+
+  app-hero-section {
+    flex-grow: 1;
+  }
+
+  app-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+}

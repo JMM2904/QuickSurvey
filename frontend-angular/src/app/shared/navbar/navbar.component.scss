@@ -1,0 +1,90 @@
+@import '../../../assets/scss/variables';
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: $bg-white;
+  box-shadow: $shadow-sm;
+  padding: $spacing-lg 0; // más aire vertical
+
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    text-decoration: none;
+    cursor: default;
+
+    &-icon {
+      height: 40px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+      // sin efecto hover para header sobrio
+    }
+
+    &-text {
+      font-family: $font-primary;
+      font-size: $font-size-medium;
+      font-weight: 700;
+      color: $text-dark;
+      white-space: nowrap;
+      cursor: default;
+    }
+  }
+
+  &__links {
+    display: none;
+  }
+
+  &__link {
+    font-family: $font-primary;
+    font-size: 1.125rem; // enlaces más grandes (~18px)
+    font-weight: 500;
+    color: $text-dark;
+    text-decoration: none;
+    transition: color $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      color: darken($primary-color, 8%);
+      text-decoration: none; // sin subrayado en hover
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+      padding: $spacing-sm 0;
+      display: block;
+
+      &:hover {
+        padding-left: $spacing-sm;
+      }
+    }
+  }
+
+  &__hamburger {
+    display: none;
+  }
+
+  &__cta {
+    display: none;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xl; // mayor separación entre enlaces
+
+    @media (max-width: $breakpoint-tablet) {
+      gap: $spacing-lg;
+    }
+  }
+}
