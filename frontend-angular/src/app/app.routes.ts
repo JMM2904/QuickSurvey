@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -16,9 +17,21 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/register/register.component').then((m) => m.RegisterComponent),
   },
+  // Rutas protegidas
   {
     path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.DashboardComponent),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'create-survey',
     loadComponent: () =>
-      import('./pages/surveys/surveys.component').then((m) => m.SurveysComponent),
+      import('./pages/create-survey/create-survey.component').then((m) => m.CreateSurveyComponent),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'my-surveys',
+    loadComponent: () => import('./pages/my-surveys/my-surveys').then((m) => m.MySurveysComponent),
+    canActivate: [authGuard],
   },
 ];

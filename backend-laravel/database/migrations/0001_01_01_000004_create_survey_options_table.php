@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('survey_id')->constrained('surveys')->onDelete('cascade');
             $table->string('text');
+            $table->string('color')->default('#5112ff');
             $table->timestamps();
         });
     }
