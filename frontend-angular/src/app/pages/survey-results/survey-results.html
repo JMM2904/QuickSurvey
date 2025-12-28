@@ -67,71 +67,16 @@
 
   <!-- Main Content -->
   <main class="main-content">
-    <div class="content-wrapper">
+    <div class="content-wrapper" *ngIf="survey">
       <header class="page-header">
-        <h1 class="page-title">Mis encuestas</h1>
+        <h1 class="survey-title">{{ survey.title }}</h1>
       </header>
 
-      <!-- Search Section -->
-      <section class="search-section">
-        <div class="search-bar">
-          <svg
-            class="search-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 256 256"
-          >
-            <path
-              fill="currentColor"
-              d="M232.49 215.51L185 168a92.12 92.12 0 1 0-17 17l47.53 47.54a12 12 0 0 0 17-17ZM44 112a68 68 0 1 1 68 68a68.07 68.07 0 0 1-68-68"
-            />
-          </svg>
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Buscar encuestas..."
-            [(ngModel)]="searchQuery"
-            (input)="onSearchChange()"
-          />
-        </div>
-      </section>
+      <section class="results-section">
+        <h2 class="results-title">Resultados</h2>
 
-      <!-- Surveys Grid -->
-      <section class="surveys-grid">
-        <div class="survey-card" *ngFor="let survey of surveys">
-          <h3 class="survey-title">{{ survey.title }}</h3>
-
-          <div class="survey-info">
-            <div class="survey-votes">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-                <path
-                  fill="currentColor"
-                  d="M8 5v16h16V5zm2 2h12v12H10zm9.3 2.9L15 14.2l-2.3-2.3l-1.4 1.5l3 3l.7.7l.7-.7l5-5zM2 19v8h2v-6h2v-2zm24 0v2h2v6h2v-8zM6 23v2h20v-2z"
-                />
-              </svg>
-              <span>{{ getVotesCount(survey) }} votos</span>
-            </div>
-
-            <span class="survey-status" [class.active]="survey.is_active">
-              {{ getStatusText(survey) }}
-            </span>
-          </div>
-
-          <button class="btn-view" (click)="viewSurvey(survey.id)">VER</button>
-
-          <button
-            class="btn-toggle-status"
-            (click)="toggleSurveyStatus(survey)"
-            [class.reactivate]="!survey.is_active"
-          >
-            {{ survey.is_active ? 'Finalizar encuesta' : 'Reactivar encuesta' }}
-          </button>
-        </div>
-
-        <!-- Mensaje cuando no hay resultados -->
-        <div class="no-results" *ngIf="surveys.length === 0">
-          <p>No tienes encuestas creadas</p>
+        <div class="chart-container">
+          <canvas #chartCanvas></canvas>
         </div>
       </section>
     </div>

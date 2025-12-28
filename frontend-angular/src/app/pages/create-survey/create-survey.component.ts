@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SurveyService } from '../../services/survey.service';
 import { NotificationService } from '../../services/notification.service';
+import { AuthService } from '../../services/auth.service';
 
 interface SurveyOption {
   text: string;
@@ -40,7 +41,8 @@ export class CreateSurveyComponent {
   constructor(
     private surveyService: SurveyService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private authService: AuthService
   ) {}
 
   setActiveRoute(route: string): void {
@@ -109,5 +111,10 @@ export class CreateSurveyComponent {
         this.notificationService.show('Error al crear la encuesta. Intenta de nuevo.', 'error');
       },
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -14,11 +14,11 @@ export class HeroSectionComponent {
 
   startSurvey() {
     // Si está autenticado, ir a dashboard
-    // Si no está autenticado, ir a register
+    // Si no está autenticado, ir a login
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/dashboard']);
     } else {
-      this.router.navigate(['/register']);
+      this.router.navigate(['/login']);
     }
   }
 }

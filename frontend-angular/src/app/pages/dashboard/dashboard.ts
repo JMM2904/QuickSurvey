@@ -115,4 +115,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getAuthorName(survey: Survey): string {
     return survey.user?.name || 'Anónimo';
   }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

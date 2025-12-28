@@ -34,4 +34,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/my-surveys/my-surveys').then((m) => m.MySurveysComponent),
     canActivate: [authGuard],
   },
+  {
+    path: 'survey/:id/results',
+    loadComponent: () =>
+      import('./pages/survey-results/survey-results').then((m) => m.SurveyResultsComponent),
+    canActivate: [authGuard],
+  },
 ];

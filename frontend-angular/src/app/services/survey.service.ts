@@ -7,7 +7,9 @@ export interface SurveyOption {
   id: number;
   survey_id: number;
   text: string;
+  color?: string;
   votes_count?: number;
+  votes?: any[];
 }
 
 export interface Survey {

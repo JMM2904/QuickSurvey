@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-/* Sidebar Styles - Reutilizados del dashboard */
+/* Sidebar Styles */
 .sidebar {
   width: 280px;
   background-color: #1a1a1a;
@@ -96,7 +96,6 @@
   color: #999;
   font-weight: 500;
   font-size: 14px;
-  font-family: inherit;
 }
 
 .logout-btn:hover {
@@ -116,155 +115,41 @@
 }
 
 .content-wrapper {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 48px 32px;
 }
 
-.page-title {
-  font-size: 36px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 48px;
+.page-header {
+  margin-bottom: 32px;
 }
 
-/* Form Styles */
-.survey-form {
+.survey-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Results Section */
+.results-section {
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 32px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-  margin-bottom: 32px;
-}
-
-.form-label {
-  display: block;
-  font-size: 18px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 12px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  font-family: inherit;
-  transition: all 0.3s ease;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #5112ff;
-  box-shadow: 0 0 0 3px rgba(81, 18, 255, 0.1);
-}
-
-/* Options Container */
-.options-container {
-  margin-bottom: 24px;
-}
-
-.option-row {
-  margin-bottom: 24px;
-}
-
-.option-input-group {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.option-input {
-  flex: 1;
-}
-
-.color-picker {
-  width: 48px;
-  height: 48px;
-  border: 2px solid #ddd;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 4px;
-}
-
-.color-picker:hover {
-  border-color: #5112ff;
-  transform: scale(1.1);
-}
-
-.btn-remove {
-  width: 36px;
-  height: 36px;
-  background-color: #ff4444;
-  color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.btn-remove:hover {
-  background-color: #cc0000;
-  transform: scale(1.1);
-}
-
-/* Button Añadir Opción */
-.btn-add-option {
-  width: 100%;
-  padding: 14px 24px;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  margin-bottom: 32px;
-}
-
-.btn-add-option:hover {
-  background-color: #000000;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Button Crear */
-.btn-create {
-  width: 100%;
-  padding: 16px 24px;
-  background-color: #5112ff;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
+.results-title {
+  font-size: 32px;
   font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  letter-spacing: 1px;
+  color: #1a1a1a;
+  margin: 0 0 32px;
 }
 
-.btn-create:hover {
-  background-color: #4008e6;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(81, 18, 255, 0.3);
-}
-
-.btn-create:active {
-  transform: translateY(0);
+.chart-container {
+  width: 100%;
+  height: 500px;
+  position: relative;
 }
 
 /* Responsive Design */
@@ -273,8 +158,16 @@
     width: 240px;
   }
 
-  .page-title {
-    font-size: 28px;
+  .survey-title {
+    font-size: 36px;
+  }
+
+  .results-title {
+    font-size: 24px;
+  }
+
+  .chart-container {
+    height: 400px;
   }
 }
 
@@ -323,21 +216,15 @@
     padding: 24px 16px;
   }
 
-  .page-title {
-    font-size: 24px;
-    margin-bottom: 32px;
+  .survey-title {
+    font-size: 28px;
   }
 
-  .survey-form {
-    padding: 24px;
+  .results-title {
+    font-size: 20px;
   }
 
-  .option-input-group {
-    flex-wrap: wrap;
-  }
-
-  .color-picker {
-    width: 40px;
-    height: 40px;
+  .chart-container {
+    height: 300px;
   }
 }

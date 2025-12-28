@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { SurveyService, Survey } from '../../services/survey.service';
 import { NotificationService } from '../../services/notification.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-my-surveys',
@@ -26,7 +27,8 @@ export class MySurveysComponent implements OnInit, OnDestroy {
   constructor(
     private surveyService: SurveyService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -88,8 +90,7 @@ export class MySurveysComponent implements OnInit, OnDestroy {
   }
 
   viewSurvey(surveyId: number): void {
-    console.log('Ver encuesta:', surveyId);
-    // Navegar a ver resultados
+    this.router.navigate(['/survey', surveyId, 'results']);
   }
 
   toggleSurveyStatus(survey: Survey): void {
@@ -113,5 +114,10 @@ export class MySurveysComponent implements OnInit, OnDestroy {
 
   getStatusText(survey: Survey): string {
     return survey.is_active ? 'Activa' : 'Finalizado';
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
