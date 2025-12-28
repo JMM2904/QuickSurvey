@@ -6,13 +6,14 @@ import { takeUntil } from 'rxjs/operators';
 import { SurveyService, Survey, SurveyOption } from '../../services/survey.service';
 import { AuthService } from '../../services/auth.service';
 import { Chart, registerables } from 'chart.js';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-survey-results',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SidebarComponent],
   templateUrl: './survey-results.html',
   styleUrls: ['./survey-results.css'],
 })
@@ -169,21 +170,5 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
     });
 
     console.log('Gráfico creado exitosamente!');
-  }
-
-  setActiveRoute(route: string): void {
-    this.activeRoute = route;
-    if (route === 'inicio') {
-      this.router.navigate(['/dashboard']);
-    } else if (route === 'crear') {
-      this.router.navigate(['/create-survey']);
-    } else if (route === 'encuestas') {
-      this.router.navigate(['/my-surveys']);
-    }
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

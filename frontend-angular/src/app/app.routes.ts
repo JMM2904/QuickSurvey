@@ -35,6 +35,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'survey/:id/vote',
+    loadComponent: () =>
+      import('./pages/vote-survey/vote-survey').then((m) => m.VoteSurveyComponent),
+    canActivate: [authGuard],
+  },
+  {
     path: 'survey/:id/results',
     loadComponent: () =>
       import('./pages/survey-results/survey-results').then((m) => m.SurveyResultsComponent),

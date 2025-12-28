@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SurveyService } from '../../services/survey.service';
 import { NotificationService } from '../../services/notification.service';
 import { AuthService } from '../../services/auth.service';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 
 interface SurveyOption {
   text: string;
@@ -14,7 +15,7 @@ interface SurveyOption {
 @Component({
   selector: 'app-create-survey',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SidebarComponent],
   templateUrl: './create-survey.component.html',
   styleUrls: ['./create-survey.component.scss'],
 })
@@ -111,10 +112,5 @@ export class CreateSurveyComponent {
         this.notificationService.show('Error al crear la encuesta. Intenta de nuevo.', 'error');
       },
     });
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

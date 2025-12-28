@@ -7,11 +7,12 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { SurveyService, Survey } from '../../services/survey.service';
 import { NotificationService } from '../../services/notification.service';
 import { AuthService } from '../../services/auth.service';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-my-surveys',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SidebarComponent],
   templateUrl: './my-surveys.html',
   styleUrls: ['./my-surveys.css'],
 })
@@ -20,6 +21,7 @@ export class MySurveysComponent implements OnInit, OnDestroy {
   surveys: Survey[] = [];
   allSurveys: Survey[] = [];
   activeRoute: string = 'encuestas';
+  confirmingDeleteId: number | null = null;
 
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
@@ -80,15 +82,6 @@ export class MySurveysComponent implements OnInit, OnDestroy {
     );
   }
 
-  setActiveRoute(route: string): void {
-    this.activeRoute = route;
-    if (route === 'inicio') {
-      this.router.navigate(['/dashboard']);
-    } else if (route === 'crear') {
-      this.router.navigate(['/create-survey']);
-    }
-  }
-
   viewSurvey(surveyId: number): void {
     this.router.navigate(['/survey', surveyId, 'results']);
   }
@@ -108,16 +101,34 @@ export class MySurveysComponent implements OnInit, OnDestroy {
     });
   }
 
+  askDelete(surveyId: number): void {
+    this.confirmingDeleteId = surveyId;
+  }
+
+  cancelDelete(): void {
+    this.confirmingDeleteId = null;
+  }
+
+  confirmDelete(survey: Survey): void {
+    this.surveyService.deleteSurvey(survey.id).subscribe({
+      next: () => {
+        this.allSurveys = this.allSurveys.filter((s) => s.id !== survey.id);
+        this.surveys = this.surveys.filter((s) => s.id !== survey.id);
+        this.confirmingDeleteId = null;
+        this.notificationService.show('Encuesta eliminada', 'success');
+      },
+      error: (error) => {
+        console.error('Error al eliminar encuesta:', error);
+        this.notificationService.show('Error al eliminar la encuesta', 'error');
+      },
+    });
+  }
+
   getVotesCount(survey: Survey): number {
     return survey.votes_count || 0;
   }
 
   getStatusText(survey: Survey): string {
     return survey.is_active ? 'Activa' : 'Finalizado';
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

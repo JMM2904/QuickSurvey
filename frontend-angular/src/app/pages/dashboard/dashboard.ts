@@ -6,11 +6,12 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { AuthService, User } from '../../services/auth.service';
 import { SurveyService, Survey } from '../../services/survey.service';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SidebarComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })
@@ -18,6 +19,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   surveys: Survey[] = [];
   allSurveys: Survey[] = [];
+  filteredSurveys: Survey[] = [];
+  currentPage = 1;
+  totalPages = 1;
+  pageSize = 6;
   currentUser: User | null = null;
   activeRoute: string = 'inicio';
 
@@ -67,7 +72,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (surveys) => {
           this.allSurveys = surveys;
-          this.surveys = surveys;
+          this.filteredSurveys = surveys;
+          this.applyPagination();
         },
         error: (error) => {
           console.error('Error al cargar encuestas:', error);
@@ -81,31 +87,52 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   filterSurveys(query: string): void {
     if (!query.trim()) {
-      this.surveys = this.allSurveys;
+      this.filteredSurveys = this.allSurveys;
+      this.currentPage = 1;
+      this.applyPagination();
       return;
     }
 
     const lowerQuery = query.toLowerCase();
-    this.surveys = this.allSurveys.filter(
+    this.filteredSurveys = this.allSurveys.filter(
       (survey) =>
         survey.title.toLowerCase().includes(lowerQuery) ||
         survey.description?.toLowerCase().includes(lowerQuery) ||
         survey.user?.name.toLowerCase().includes(lowerQuery)
     );
+
+    this.currentPage = 1;
+    this.applyPagination();
   }
 
-  setActiveRoute(route: string): void {
-    this.activeRoute = route;
-    if (route === 'crear') {
-      this.router.navigate(['/create-survey']);
-    } else if (route === 'encuestas') {
-      this.router.navigate(['/my-surveys']);
+  applyPagination(): void {
+    const total = this.filteredSurveys.length;
+    this.totalPages = Math.max(1, Math.ceil(total / this.pageSize));
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages;
+    }
+
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.surveys = this.filteredSurveys.slice(start, end);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.applyPagination();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.applyPagination();
     }
   }
 
   participate(surveyId: number): void {
-    console.log('Participar en encuesta:', surveyId);
-    // Implementar navegación a la encuesta
+    this.router.navigate(['/survey', surveyId, 'vote']);
   }
 
   getVotesCount(survey: Survey): number {
@@ -114,10 +141,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getAuthorName(survey: Survey): string {
     return survey.user?.name || 'Anónimo';
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

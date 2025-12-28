@@ -130,6 +130,22 @@ class SurveyController extends Controller
 
         $survey = Survey::findOrFail($id);
 
+        // Bloquear si la encuesta está finalizada
+        if (!$survey->is_active) {
+            return response()->json(['error' => 'La encuesta ya ha finalizado'], 403);
+        }
+
+        // Bloquear si el usuario es el dueño
+        if ($survey->user_id === Auth::id()) {
+            return response()->json(['error' => 'No puedes votar tu propia encuesta'], 403);
+        }
+
+        // Bloquear votos duplicados
+        $yaVoto = $survey->votes()->where('user_id', Auth::id())->exists();
+        if ($yaVoto) {
+            return response()->json(['error' => 'Ya has votado esta encuesta'], 409);
+        }
+
         // Verificar que la opción pertenece a esta encuesta
         $option = $survey->options()->findOrFail($validated['survey_option_id']);
 
