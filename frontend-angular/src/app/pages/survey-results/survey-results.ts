@@ -107,6 +107,23 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
     });
     const colors = this.survey.options.map((option) => option.color || '#5112ff');
 
+    // Calcular grosor de barras según tamaño de pantalla
+    const barThickness = window.innerWidth < 768 ? 30 : 80;
+
+    // Calcular altura del gráfico según número de opciones
+    const numOptions = this.survey.options.length;
+    let chartHeight = 500;
+    if (window.innerWidth < 768) {
+      chartHeight = Math.max(300, numOptions * 50);
+    } else {
+      chartHeight = Math.max(500, numOptions * 60);
+    }
+
+    // Actualizar altura del canvas dinámicamente
+    if (this.chartCanvas) {
+      this.chartCanvas.nativeElement.style.height = chartHeight + 'px';
+    }
+
     console.log('Datos del gráfico:', { labels, data, colors, votesPerOption });
 
     // Destruir gráfico anterior si existe
@@ -127,7 +144,7 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
             data: data,
             backgroundColor: colors,
             borderRadius: 8,
-            barThickness: 80,
+            barThickness: barThickness,
           },
         ],
       },

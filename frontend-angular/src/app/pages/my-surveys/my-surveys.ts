@@ -20,8 +20,13 @@ export class MySurveysComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   surveys: Survey[] = [];
   allSurveys: Survey[] = [];
+  filteredSurveys: Survey[] = [];
+  paginatedSurveys: Survey[] = [];
   activeRoute: string = 'encuestas';
   confirmingDeleteId: number | null = null;
+  currentPage = 1;
+  pageSize = 6;
+  totalPages = 1;
 
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
@@ -56,7 +61,9 @@ export class MySurveysComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (surveys) => {
           this.allSurveys = surveys;
-          this.surveys = surveys;
+          this.filteredSurveys = surveys;
+          this.currentPage = 1;
+          this.applyPagination();
         },
         error: (error) => {
           console.error('Error al cargar mis encuestas:', error);
@@ -70,16 +77,21 @@ export class MySurveysComponent implements OnInit, OnDestroy {
 
   filterSurveys(query: string): void {
     if (!query.trim()) {
-      this.surveys = this.allSurveys;
+      this.filteredSurveys = this.allSurveys;
+      this.currentPage = 1;
+      this.applyPagination();
       return;
     }
 
     const lowerQuery = query.toLowerCase();
-    this.surveys = this.allSurveys.filter(
+    this.filteredSurveys = this.allSurveys.filter(
       (survey) =>
         survey.title.toLowerCase().includes(lowerQuery) ||
         survey.description?.toLowerCase().includes(lowerQuery)
     );
+
+    this.currentPage = 1;
+    this.applyPagination();
   }
 
   viewSurvey(surveyId: number): void {
@@ -113,7 +125,8 @@ export class MySurveysComponent implements OnInit, OnDestroy {
     this.surveyService.deleteSurvey(survey.id).subscribe({
       next: () => {
         this.allSurveys = this.allSurveys.filter((s) => s.id !== survey.id);
-        this.surveys = this.surveys.filter((s) => s.id !== survey.id);
+        this.filteredSurveys = this.filteredSurveys.filter((s) => s.id !== survey.id);
+        this.applyPagination();
         this.confirmingDeleteId = null;
         this.notificationService.show('Encuesta eliminada', 'success');
       },
@@ -128,7 +141,51 @@ export class MySurveysComponent implements OnInit, OnDestroy {
     return survey.votes_count || 0;
   }
 
+  getVotesText(survey: Survey): string {
+    const count = this.getVotesCount(survey);
+    return count === 1 ? 'voto' : 'votos';
+  }
+
   getStatusText(survey: Survey): string {
     return survey.is_active ? 'Activa' : 'Finalizado';
+  }
+
+  shareLink(surveyId: number, event: Event): void {
+    event.stopPropagation();
+    const url = `${window.location.origin}/survey/${surveyId}/vote`;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        this.notificationService.show('Enlace copiado al portapapeles', 'success');
+      })
+      .catch(() => {
+        this.notificationService.show('Error al copiar el enlace', 'error');
+      });
+  }
+
+  applyPagination(): void {
+    const total = this.filteredSurveys.length;
+    this.totalPages = Math.max(1, Math.ceil(total / this.pageSize));
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages;
+    }
+
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedSurveys = this.filteredSurveys.slice(start, end);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.applyPagination();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.applyPagination();
+    }
   }
 }

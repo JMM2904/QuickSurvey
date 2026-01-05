@@ -18,8 +18,18 @@ export class RegisterComponent {
   confirm = '';
   errorMessage = '';
   isLoading = false;
+  showPassword = false;
+  showConfirm = false;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmVisibility(): void {
+    this.showConfirm = !this.showConfirm;
+  }
 
   onSubmit() {
     this.errorMessage = '';

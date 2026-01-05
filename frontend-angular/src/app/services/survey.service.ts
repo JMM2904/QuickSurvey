@@ -87,12 +87,27 @@ export class SurveyService {
     });
   }
 
+  getAdminSurveys(): Observable<Survey[]> {
+    return this.http.get<Survey[]>(`${this.apiUrl}/admin/surveys`, {
+      headers: this.getHeaders(),
+    });
+  }
+
   vote(surveyId: number, optionId: number): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/surveys/${surveyId}/vote`,
       {
         survey_option_id: optionId,
       },
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
+
+  getAdminStats(): Observable<{ totalUsers: number; totalSurveys: number; totalVotes: number }> {
+    return this.http.get<{ totalUsers: number; totalSurveys: number; totalVotes: number }>(
+      `${this.apiUrl}/admin/stats`,
       {
         headers: this.getHeaders(),
       }

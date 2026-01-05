@@ -24,6 +24,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'admin',
+    loadComponent: () =>
+      import('./pages/admin-dashboard/admin-dashboard').then((m) => m.AdminDashboardComponent),
+    canActivate: [authGuard],
+  },
+  {
     path: 'create-survey',
     loadComponent: () =>
       import('./pages/create-survey/create-survey.component').then((m) => m.CreateSurveyComponent),

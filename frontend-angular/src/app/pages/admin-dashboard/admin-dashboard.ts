@@ -10,25 +10,27 @@ import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-admin-dashboard',
   standalone: true,
   imports: [CommonModule, FormsModule, SidebarComponent],
-  templateUrl: './dashboard.html',
-  styleUrls: ['./dashboard.css'],
+  templateUrl: './admin-dashboard.html',
+  styleUrls: ['./admin-dashboard.css'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class AdminDashboardComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   surveys: Survey[] = [];
   allSurveys: Survey[] = [];
   filteredSurveys: Survey[] = [];
   currentPage = 1;
   totalPages = 1;
-  pageSize = 6;
+  pageSize = 10;
   currentUser: User | null = null;
-  activeRoute: string = 'inicio';
+  activeRoute: string = 'admin';
   totalUsers = 0;
   totalSurveys = 0;
   totalVotes = 0;
+  showDeleteModal = false;
+  surveyToDelete: number | null = null;
 
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
@@ -41,23 +43,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Obtener usuario actual
     this.authService
       .getCurrentUser()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (user) => {
           this.currentUser = user;
+          const isAdmin = (user as any)?.role === 'admin';
+
+          if (!isAdmin) {
+            this.router.navigate(['/dashboard']);
+            return;
+          }
+
+          this.loadSurveys();
         },
         error: (error) => {
           console.error('Error al obtener usuario:', error);
+          this.router.navigate(['/dashboard']);
         },
       });
 
-    // Cargar encuestas
-    this.loadSurveys();
-
-    // Configurar búsqueda en tiempo real con debounce
     this.searchSubject
       .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((query) => {
@@ -71,36 +77,35 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadSurveys(): void {
+    // Cargar estadísticas reales de la base de datos
     this.surveyService
-      .getAllSurveys()
+      .getAdminStats()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (stats) => {
+          this.totalUsers = stats.totalUsers;
+          this.totalSurveys = stats.totalSurveys;
+          this.totalVotes = stats.totalVotes;
+        },
+        error: (error) => {
+          console.error('Error al cargar estadísticas:', error);
+        },
+      });
+
+    // Cargar lista de encuestas para la tabla
+    this.surveyService
+      .getAdminSurveys()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (surveys) => {
           this.allSurveys = surveys;
           this.filteredSurveys = surveys;
-          this.updateStats();
           this.applyPagination();
         },
         error: (error) => {
           console.error('Error al cargar encuestas:', error);
         },
       });
-  }
-
-  private updateStats(): void {
-    this.totalSurveys = this.allSurveys.length;
-    const uniqueUsers = new Set<number>();
-    let votes = 0;
-
-    this.allSurveys.forEach((survey) => {
-      if (survey.user?.id) {
-        uniqueUsers.add(survey.user.id);
-      }
-      votes += survey.votes_count || 0;
-    });
-
-    this.totalUsers = uniqueUsers.size;
-    this.totalVotes = votes;
   }
 
   onSearchChange(): void {
@@ -153,8 +158,37 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  participate(surveyId: number): void {
-    this.router.navigate(['/survey', surveyId, 'vote']);
+  viewSurvey(surveyId: number): void {
+    this.router.navigate(['/survey', surveyId, 'results']);
+  }
+
+  deleteSurvey(surveyId: number): void {
+    this.surveyToDelete = surveyId;
+    this.showDeleteModal = true;
+  }
+
+  confirmDelete(): void {
+    if (this.surveyToDelete === null) return;
+
+    this.surveyService
+      .deleteSurvey(this.surveyToDelete)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.notificationService.show('Encuesta eliminada', 'success');
+          this.closeDeleteModal();
+          this.loadSurveys();
+        },
+        error: () => {
+          this.notificationService.show('Error al eliminar la encuesta', 'error');
+          this.closeDeleteModal();
+        },
+      });
+  }
+
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+    this.surveyToDelete = null;
   }
 
   getVotesCount(survey: Survey): number {
@@ -164,22 +198,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getVotesText(survey: Survey): string {
     const count = this.getVotesCount(survey);
     return count === 1 ? 'voto' : 'votos';
-  }
-
-  getAuthorName(survey: Survey): string {
-    return survey.user?.name || 'Anónimo';
-  }
-
-  shareLink(surveyId: number, event: Event): void {
-    event.stopPropagation();
-    const url = `${window.location.origin}/survey/${surveyId}/vote`;
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        this.notificationService.show('Enlace copiado al portapapeles', 'success');
-      })
-      .catch(() => {
-        this.notificationService.show('Error al copiar el enlace', 'error');
-      });
   }
 }

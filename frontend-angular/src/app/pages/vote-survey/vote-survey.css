@@ -17,49 +17,127 @@
   margin-left: 280px;
   padding: 3rem;
   overflow-y: auto;
+  transition: margin-left 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .main-content {
+    margin-left: 280px;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+  }
+}
+
+/* Mobile/Tablet */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 1.5rem;
+    padding-top: 80px;
+  }
+
+  .content-wrapper {
+    max-width: 100%;
+  }
+
+  .vote-container {
+    padding: 1.5rem;
+  }
+
+  .survey-title {
+    font-size: 1.5rem;
+  }
+
+  .options-container {
+    flex-direction: column;
+  }
+
+  .option {
+    width: 100%;
+  }
 }
 
 .content-wrapper {
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .vote-container {
   background: white;
   border-radius: 16px;
-  padding: 3rem;
+  padding: 4rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 600px;
 }
 
 .survey-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .survey-description {
   font-size: 1rem;
   color: #666;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   line-height: 1.6;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .survey-description {
+    margin-bottom: 1.25rem;
+  }
+
+  .options-container {
+    margin-bottom: 1.25rem;
+  }
+
+  .vote-container {
+    padding: 1.5rem;
+    gap: 1.25rem;
+    max-width: 90%;
+  }
+
+  .vote-btn {
+    padding: 0.875rem 1.5rem;
+  }
 }
 
 /* Options */
 .options-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .option-item {
   background: #f9f9f9;
   border: 2px solid #e0e0e0;
   border-radius: 12px;
-  padding: 1.25rem 1.5rem;
+  padding: 2rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
 }
 
 .option-item:hover {
@@ -77,14 +155,22 @@
 .radio-wrapper {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
+  width: 100%;
 }
 
 .radio-wrapper input[type='radio'] {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
   accent-color: #5112ff;
+  flex-shrink: 0;
+}
+
+.radio-wrapper label {
+  font-size: 1.1rem;
+  cursor: pointer;
+  flex-grow: 1;
 }
 
 .radio-wrapper label {
@@ -98,12 +184,12 @@
 /* Vote Button */
 .vote-btn {
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1.25rem 2rem;
   background-color: #5112ff;
   color: white;
   border: none;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;

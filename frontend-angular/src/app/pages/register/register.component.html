@@ -30,24 +30,44 @@
         [disabled]="isLoading"
         required
       />
-      <input
-        type="password"
-        [(ngModel)]="password"
-        name="password"
-        class="register__input"
-        placeholder="Contraseña"
-        [disabled]="isLoading"
-        required
-      />
-      <input
-        type="password"
-        [(ngModel)]="confirm"
-        name="confirm"
-        class="register__input"
-        placeholder="Confirmar contraseña"
-        [disabled]="isLoading"
-        required
-      />
+      <div class="register__password-field">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          name="password"
+          class="register__input"
+          placeholder="Contraseña"
+          [disabled]="isLoading"
+          required
+        />
+        <button
+          type="button"
+          class="register__toggle-password"
+          (click)="togglePasswordVisibility()"
+          [disabled]="isLoading"
+        >
+          {{ showPassword ? '🔐' : '👁️' }}
+        </button>
+      </div>
+      <div class="register__password-field">
+        <input
+          [type]="showConfirm ? 'text' : 'password'"
+          [(ngModel)]="confirm"
+          name="confirm"
+          class="register__input"
+          placeholder="Confirmar contraseña"
+          [disabled]="isLoading"
+          required
+        />
+        <button
+          type="button"
+          class="register__toggle-password"
+          (click)="toggleConfirmVisibility()"
+          [disabled]="isLoading"
+        >
+          {{ showConfirm ? '🔐' : '👁️' }}
+        </button>
+      </div>
 
       <button type="submit" class="register__button" [disabled]="isLoading">
         {{ isLoading ? 'Registrando...' : 'Registrarse' }}

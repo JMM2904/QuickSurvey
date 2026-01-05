@@ -1,0 +1,137 @@
+<div class="dashboard-container">
+  <app-sidebar [activeRoute]="activeRoute"></app-sidebar>
+
+  <main class="main-content">
+    <div class="content-wrapper">
+      <header class="dashboard-header">
+        <h1 class="greeting">¡Hola, Admin!</h1>
+        <p class="subtitle">Un resumen de la actividad en QuickSurvey</p>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M16 17v2H2v-2s0-4 7-4s7 4 7 4m-3.5-9.5A3.5 3.5 0 1 0 9 11a3.5 3.5 0 0 0 3.5-3.5m3.44 5.5A5.32 5.32 0 0 1 18 17v2h4v-2s0-3.63-6.06-4M15 4a3.4 3.4 0 0 0-1.93.59a5 5 0 0 1 0 5.82A3.4 3.4 0 0 0 15 11a3.5 3.5 0 0 0 0-7"
+              />
+            </svg>
+          </div>
+          <p class="stat-label">Usuarios registrados</p>
+          <p class="stat-value">{{ totalUsers | number : '1.0-0' }}</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
+              <path
+                fill="currentColor"
+                d="M208 32H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16M68 188a12 12 0 1 1 12-12a12 12 0 0 1-12 12m0-48a12 12 0 1 1 12-12a12 12 0 0 1-12 12m0-48a12 12 0 1 1 12-12a12 12 0 0 1-12 12m124 92h-88a8 8 0 0 1 0-16h88a8 8 0 0 1 0 16m0-48h-88a8 8 0 0 1 0-16h88a8 8 0 0 1 0 16m0-48h-88a8 8 0 0 1 0-16h88a8 8 0 0 1 0 16"
+              />
+            </svg>
+          </div>
+          <p class="stat-label">Encuestas creadas</p>
+          <p class="stat-value">{{ totalSurveys | number : '1.0-0' }}</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
+              <path
+                fill="currentColor"
+                d="M8 5v16h16V5zm2 2h12v12H10zm9.3 2.9L15 14.2l-2.3-2.3l-1.4 1.5l3 3l.7.7l.7-.7l5-5zM2 19v8h2v-6h2v-2zm24 0v2h2v6h2v-8zM6 23v2h20v-2z"
+              />
+            </svg>
+          </div>
+          <p class="stat-label">Votos totales</p>
+          <p class="stat-value">{{ totalVotes | number : '1.0-0' }}</p>
+        </article>
+      </section>
+
+      <section class="table-section">
+        <div class="table-header">
+          <h2 class="section-title">Encuestas recientes</h2>
+          <div class="search-bar">
+            <svg
+              class="search-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 256 256"
+            >
+              <path
+                fill="currentColor"
+                d="M232.49 215.51L185 168a92.12 92.12 0 1 0-17 17l47.53 47.54a12 12 0 0 0 17-17ZM44 112a68 68 0 1 1 68 68a68.07 68.07 0 0 1-68-68"
+              />
+            </svg>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Buscar encuestas..."
+              [(ngModel)]="searchQuery"
+              (input)="onSearchChange()"
+            />
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="survey-table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Fecha de creación</th>
+                <th>Estado</th>
+                <th>Votos</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let survey of surveys">
+                <td>{{ survey.title }}</td>
+                <td>{{ survey.created_at | date : 'dd/MM/yyyy' }}</td>
+                <td>
+                  <span class="status-pill" [class.active]="survey.is_active">{{
+                    survey.is_active ? 'Activa' : 'Finalizada'
+                  }}</span>
+                </td>
+                <td class="votes-cell">
+                  <span>{{ getVotesCount(survey) }} {{ getVotesText(survey) }}</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="btn-view" (click)="viewSurvey(survey.id)">VER</button>
+                  <button class="btn-delete" (click)="deleteSurvey(survey.id)">ELIMINAR</button>
+                </td>
+              </tr>
+              <tr *ngIf="surveys.length === 0">
+                <td colspan="5" class="empty-row">No se encontraron encuestas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <section class="pagination" *ngIf="filteredSurveys.length > pageSize">
+          <button class="page-btn" (click)="prevPage()" [disabled]="currentPage === 1">
+            ← Anterior
+          </button>
+          <span class="page-info">Página {{ currentPage }} de {{ totalPages }}</span>
+          <button class="page-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Siguiente →
+          </button>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal de confirmación -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3 class="modal-title">Confirmar eliminación</h3>
+      <p class="modal-message">¿Estás seguro de que deseas eliminar esta encuesta?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeDeleteModal()">Cancelar</button>
+        <button class="btn-confirm" (click)="confirmDelete()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

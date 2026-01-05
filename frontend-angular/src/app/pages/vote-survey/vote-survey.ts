@@ -66,7 +66,9 @@ export class VoteSurveyComponent implements OnInit, OnDestroy {
             return;
           }
 
-          if (this.currentUser && survey.user_id === this.currentUser.id) {
+          const isAdmin = (this.currentUser?.role || '').toLowerCase() === 'admin';
+
+          if (this.currentUser && survey.user_id === this.currentUser.id && !isAdmin) {
             this.notificationService.show('No puedes votar tu propia encuesta', 'error');
             this.router.navigate(['/dashboard']);
             return;
@@ -78,7 +80,7 @@ export class VoteSurveyComponent implements OnInit, OnDestroy {
             survey.options?.some((opt: any) =>
               opt.votes?.some((vote: any) => vote.user_id === this.currentUser!.id)
             );
-          if (yaVoto) {
+          if (yaVoto && !isAdmin) {
             this.notificationService.show('Ya has votado esta encuesta', 'info');
             this.router.navigate(['/survey', survey.id, 'results']);
             return;

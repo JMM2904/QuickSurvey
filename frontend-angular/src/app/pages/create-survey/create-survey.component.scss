@@ -10,6 +10,39 @@
   margin-left: 280px;
   overflow-y: auto;
   background-color: #f8f8f8;
+  transition: margin-left 0.3s ease;
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .main-content {
+    margin-left: 280px;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+  }
+}
+
+/* Mobile/Tablet */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding-top: 64px;
+  }
+
+  .content-wrapper {
+    max-width: 100%;
+    padding: 24px 16px;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .survey-form {
+    padding: 24px 16px;
+  }
 }
 
 .content-wrapper {

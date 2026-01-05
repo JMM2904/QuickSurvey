@@ -25,6 +25,27 @@ class SurveyController extends Controller
     }
 
     /**
+     * Listado completo para admin (incluye finalizadas y propias)
+     */
+    public function adminSurveys()
+    {
+        $user = Auth::user();
+        $isAdmin = $user && strtolower($user->role ?? '') === 'admin';
+
+        if (!$isAdmin) {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
+
+        $surveys = Survey::with(['user', 'options'])
+            ->withCount('votes')
+            ->where('user_id', '!=', $user->id)
+            ->latest()
+            ->get();
+
+        return response()->json($surveys);
+    }
+
+    /**
      * Obtener las encuestas del usuario autenticado
      */
     public function mySurveys()
@@ -110,7 +131,12 @@ class SurveyController extends Controller
     {
         $survey = Survey::findOrFail($id);
 
-        if ($survey->user_id !== Auth::id()) {
+        $user = Auth::user();
+        $isAdmin = $user && strtolower($user->role ?? '') === 'admin';
+        $isAdmin = $user && strtolower($user->role ?? '') === 'admin';
+        
+        // Permitir si es el dueño o si es admin
+        if ($survey->user_id !== $user->id && !$isAdmin) {
             return response()->json(['error' => 'No autorizado'], 403);
         }
 
@@ -130,20 +156,25 @@ class SurveyController extends Controller
 
         $survey = Survey::findOrFail($id);
 
+        $user = Auth::user();
+        $isAdmin = $user && strtolower($user->role ?? '') === 'admin';
+
         // Bloquear si la encuesta está finalizada
         if (!$survey->is_active) {
             return response()->json(['error' => 'La encuesta ya ha finalizado'], 403);
         }
 
-        // Bloquear si el usuario es el dueño
-        if ($survey->user_id === Auth::id()) {
-            return response()->json(['error' => 'No puedes votar tu propia encuesta'], 403);
-        }
+        if (!$isAdmin) {
+            // Bloquear si el usuario es el dueño (solo aplica a no admin)
+            if ($survey->user_id === $user->id) {
+                return response()->json(['error' => 'No puedes votar tu propia encuesta'], 403);
+            }
 
-        // Bloquear votos duplicados
-        $yaVoto = $survey->votes()->where('user_id', Auth::id())->exists();
-        if ($yaVoto) {
-            return response()->json(['error' => 'Ya has votado esta encuesta'], 409);
+            // Bloquear votos duplicados (solo aplica a no admin)
+            $yaVoto = $survey->votes()->where('user_id', $user->id)->exists();
+            if ($yaVoto) {
+                return response()->json(['error' => 'Ya has votado esta encuesta'], 409);
+            }
         }
 
         // Verificar que la opción pertenece a esta encuesta
@@ -151,7 +182,7 @@ class SurveyController extends Controller
 
         // Crear el voto
         $vote = $survey->votes()->create([
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'survey_option_id' => $validated['survey_option_id'],
         ]);
 
@@ -159,5 +190,14 @@ class SurveyController extends Controller
             'message' => 'Voto registrado',
             'vote' => $vote,
         ], 201);
+    }
+
+    public function adminStats()
+    {
+        return response()->json([
+            'totalUsers' => \App\Models\User::count(),
+            'totalSurveys' => Survey::count(),
+            'totalVotes' => \App\Models\Vote::count(),
+        ]);
     }
 }
