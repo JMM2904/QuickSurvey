@@ -59,8 +59,3 @@ npm run start
 
 - Instalación detallada y resolución de problemas: [SETUP.md](SETUP.md)
 - Modelo de datos: [DOCUMENTACION_BD.md](DOCUMENTACION_BD.md)
-
-## Notas rápidas
-
-- Usa `php artisan serve` (no `server`).
-- Ejecuta `composer dump-autoload` si cambian clases y no se reconocen.
