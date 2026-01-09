@@ -34,7 +34,7 @@ export class RegisterComponent {
   onSubmit() {
     this.errorMessage = '';
 
-    // Validaciones
+   
     if (!this.name || !this.email || !this.password || !this.confirm) {
       this.errorMessage = 'Por favor completa todos los campos';
       return;
@@ -73,3 +73,4 @@ export class RegisterComponent {
     return emailRegex.test(email);
   }
 }
+

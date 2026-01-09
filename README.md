@@ -1,31 +1,47 @@
 # QuickSurvey
 
-Aplicación web para crear y compartir encuestas rápidas y visualizar resultados mediante gráficos.
+Aplicación web para crear, compartir y votar encuestas con visualización de resultados en tiempo real.
 
-Tecnologías principales
+## Stack
 
-- Backend: Laravel 12 + PHP 8.2
-- Base de datos: MySQL
-- Frontend: Angular (Chart.js para gráficos)
+- Backend: Laravel 12 (PHP 8.2) + MySQL
+- Frontend: Angular + Chart.js
 
-Estado: prototipo funcional — migraciones, seeders y una ruta de prueba en backend disponibles.
+## Funcionalidades
 
-## Quick Start (rápido)
+- Registro/login con roles (admin/usuario)
+- CRUD de encuestas y opciones
+- Votación con control de duplicados
+- Resultados con gráficos
 
-Estos pasos arrancan la parte backend y frontend de forma local.
+## Estructura del repositorio
 
-Backend (rápido):
+- `backend-laravel/` → API Laravel, migraciones, seeders
+- `frontend-angular/` → SPA Angular
+- `db/QuickSurvey.sql` → dump inicial
+- `DOCUMENTACION_BD.md` → diseño de base de datos
+- `SETUP.md` → guía completa de instalación
+
+## Requisitos mínimos
+
+- PHP 8.2+, Composer 2
+- Node.js 20+ y npm
+- MySQL 8.x
+
+## Inicio rápido
+
+Backend:
 
 ```powershell
 cd backend-laravel
 composer install
-# Copia o crea el fichero .env (si existe .env ya validado puedes usarlo)
+copy .env.example .env   # ajusta credenciales
 php artisan key:generate
 php artisan migrate --seed
 php artisan serve
 ```
 
-Frontend (rápido):
+Frontend:
 
 ```powershell
 cd frontend-angular
@@ -33,21 +49,18 @@ npm install
 npm run start
 ```
 
-### Ruta de prueba (backend)
+## Rutas útiles (API)
 
-- `GET /test/survey` → devuelve la primera encuesta con `options` y `votes` en JSON.
+- `GET /api/surveys` (auth)
+- `POST /api/surveys` (auth) crear encuesta
+- `POST /api/surveys/{id}/vote` (auth) registrar voto
 
-## Documentación y instalación completa
+## Documentación extendida
 
-- `SETUP.md` — instrucciones detalladas de configuración e instalación.
-- `DOCUMENTACION_BD.md` — documentación y diseño de la base de datos.
-- `DB_REFERENCE.md` — referencia rápida de la estructura de la BD.
+- Instalación detallada y resolución de problemas: [SETUP.md](SETUP.md)
+- Modelo de datos: [DOCUMENTACION_BD.md](DOCUMENTACION_BD.md)
 
-## Próximos pasos sugeridos
+## Notas rápidas
 
-- Crear endpoints API REST en `routes/api.php` para listar/mostrar encuestas y registrar votos.
-- Maquetar componentes Angular y conectar con la API.
-
----
-
-Para instrucciones detalladas y resolución de problemas, abre `SETUP.md`.
+- Usa `php artisan serve` (no `server`).
+- Ejecuta `composer dump-autoload` si cambian clases y no se reconocen.

@@ -14,19 +14,16 @@ class SurveyOption extends Model
         'color',
     ];
 
-    /**
-     * Get the survey that owns this option.
-     */
+    
     public function survey(): BelongsTo
     {
         return $this->belongsTo(Survey::class);
     }
 
-    /**
-     * Get the votes for this option.
-     */
+    
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class, 'survey_option_id');
     }
 }
+

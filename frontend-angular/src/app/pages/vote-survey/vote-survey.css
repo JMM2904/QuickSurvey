@@ -11,7 +11,7 @@
   font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Main Content */
+
 .main-content {
   flex: 1;
   margin-left: 280px;
@@ -23,7 +23,7 @@
   align-items: center;
 }
 
-/* Desktop */
+
 @media (min-width: 769px) {
   .main-content {
     margin-left: 280px;
@@ -34,7 +34,7 @@
   }
 }
 
-/* Mobile/Tablet */
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
@@ -98,7 +98,7 @@
   line-height: 1.6;
 }
 
-/* Mobile adjustments */
+
 @media (max-width: 768px) {
   .survey-description {
     margin-bottom: 1.25rem;
@@ -119,7 +119,7 @@
   }
 }
 
-/* Options */
+
 .options-container {
   display: flex;
   flex-direction: column;
@@ -181,7 +181,7 @@
   font-weight: 500;
 }
 
-/* Vote Button */
+
 .vote-btn {
   width: 100%;
   padding: 1.25rem 2rem;
@@ -209,7 +209,7 @@
   transform: none;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 70px;
@@ -224,3 +224,4 @@
     font-size: 1.5rem;
   }
 }
+

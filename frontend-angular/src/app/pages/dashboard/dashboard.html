@@ -1,17 +1,17 @@
 <div class="dashboard-container">
-  <!-- Sidebar Navigation -->
+  
   <app-sidebar [activeRoute]="activeRoute"></app-sidebar>
 
-  <!-- Main Content -->
+  
   <main class="main-content">
     <div class="content-wrapper">
-      <!-- Header -->
+      
       <header class="dashboard-header">
         <h1 class="greeting">¡Hola, {{ currentUser?.name || 'Usuario' }}!</h1>
         <p class="subtitle">Un vistazo rápido a las encuestas disponibles en QuickSurvey</p>
       </header>
 
-      <!-- Search Section -->
+      
       <section class="search-section">
         <h2 class="section-title">Explora encuestas de otros usuarios</h2>
 
@@ -38,7 +38,7 @@
         </div>
       </section>
 
-      <!-- Surveys Grid -->
+      
       <section class="surveys-grid">
         <div class="survey-card" *ngFor="let survey of surveys">
           <h3 class="survey-title">{{ survey.title }}</h3>
@@ -73,13 +73,13 @@
           </div>
         </div>
 
-        <!-- Mensaje cuando no hay resultados -->
+        
         <div class="no-results" *ngIf="surveys.length === 0">
           <p>No se encontraron encuestas</p>
         </div>
       </section>
 
-      <!-- Pagination -->
+      
       <section class="pagination" *ngIf="filteredSurveys.length > pageSize">
         <button class="page-btn" (click)="prevPage()" [disabled]="currentPage === 1">
           ← Anterior
@@ -92,3 +92,4 @@
     </div>
   </main>
 </div>
+

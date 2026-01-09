@@ -40,7 +40,7 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngAfterViewInit(): void {
     this.viewInitialized = true;
-    // Si los datos ya llegaron, crear el gráfico ahora
+   
     if (this.survey) {
       setTimeout(() => this.createChart(), 100);
     }
@@ -61,7 +61,7 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
       .subscribe({
         next: (survey) => {
           this.survey = survey;
-          // Si la vista ya está inicializada, crear el gráfico
+         
           if (this.viewInitialized) {
             setTimeout(() => this.createChart(), 100);
           }
@@ -91,14 +91,14 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
       return;
     }
 
-    // Calcular total de votos
+   
     const totalVotes = this.survey.options.reduce((sum, option) => {
       return sum + (option.votes?.length || 0);
     }, 0);
 
     console.log('Total de votos:', totalVotes);
 
-    // Preparar datos
+   
     const labels = this.survey.options.map((option) => option.text);
     const votesPerOption = this.survey.options.map((option) => option.votes?.length || 0);
     const data = this.survey.options.map((option) => {
@@ -107,10 +107,10 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
     });
     const colors = this.survey.options.map((option) => option.color || '#5112ff');
 
-    // Calcular grosor de barras según tamaño de pantalla
+   
     const barThickness = window.innerWidth < 768 ? 30 : 80;
 
-    // Calcular altura del gráfico según número de opciones
+   
     const numOptions = this.survey.options.length;
     let chartHeight = 500;
     if (window.innerWidth < 768) {
@@ -119,21 +119,21 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
       chartHeight = Math.max(500, numOptions * 60);
     }
 
-    // Actualizar altura del canvas dinámicamente
+   
     if (this.chartCanvas) {
       this.chartCanvas.nativeElement.style.height = chartHeight + 'px';
     }
 
     console.log('Datos del gráfico:', { labels, data, colors, votesPerOption });
 
-    // Destruir gráfico anterior si existe
+   
     if (this.chart) {
       this.chart.destroy();
     }
 
     console.log('Creando nuevo gráfico...');
 
-    // Crear gráfico
+   
     this.chart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -189,3 +189,4 @@ export class SurveyResultsComponent implements OnInit, OnDestroy, AfterViewInit 
     console.log('Gráfico creado exitosamente!');
   }
 }
+

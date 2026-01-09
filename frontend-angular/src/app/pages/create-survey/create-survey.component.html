@@ -1,14 +1,14 @@
 <div class="dashboard-container">
-  <!-- Sidebar Navigation -->
+  
   <app-sidebar [activeRoute]="activeRoute"></app-sidebar>
 
-  <!-- Main Content -->
+  
   <main class="main-content">
     <div class="content-wrapper">
       <h1 class="page-title">Crear nueva encuesta</h1>
 
       <form class="survey-form" (ngSubmit)="createSurvey()">
-        <!-- Título -->
+        
         <div class="form-group">
           <label for="title" class="form-label">Título</label>
           <input
@@ -22,7 +22,7 @@
           />
         </div>
 
-        <!-- Descripción -->
+        
         <div class="form-group">
           <label for="description" class="form-label">Descripción</label>
           <input
@@ -35,7 +35,7 @@
           />
         </div>
 
-        <!-- Opciones -->
+        
         <div class="options-container">
           <div class="option-row" *ngFor="let option of options; let i = index">
             <label class="form-label">Opción {{ i + 1 }}</label>
@@ -68,12 +68,13 @@
           </div>
         </div>
 
-        <!-- Botón Añadir Opción -->
+        
         <button type="button" class="btn-add-option" (click)="addOption()">+ Añadir opción</button>
 
-        <!-- Botón Crear -->
+        
         <button type="submit" class="btn-create">CREAR</button>
       </form>
     </div>
   </main>
 </div>
+

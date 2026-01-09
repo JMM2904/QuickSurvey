@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="QuickSurvey logo icon" fill="none">
+  <defs>
+    <linearGradient id="qs-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5112ff" />
+      <stop offset="100%" stop-color="#764ba2" />
+    </linearGradient>
+  </defs>
+  <!-- trazo principal del tick -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 32.5 28.5 43l17-22" stroke="url(#qs-grad)" stroke-width="6" />
+    <!-- brillo interno para dar relieve -->
+    <path d="M19 32.2 29 42l15.5-20.5" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2.2" />
+  </g>
+
+  <!-- chispas/acento en la punta -->
+  <g stroke="url(#qs-grad)" stroke-linecap="round" stroke-width="2.5">
+    <path d="M45.5 17 48.5 19.5" />
+    <path d="M47 15.2 50 17.4" />
+  </g>
+
+  <!-- leve arco de movimiento -->
+  <path d="M12 30c3-5 8-8.5 14-10" stroke="url(#qs-grad)" stroke-width="2.5" stroke-linecap="round" opacity="0.35" />
+</svg>

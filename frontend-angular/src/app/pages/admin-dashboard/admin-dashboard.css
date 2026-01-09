@@ -284,7 +284,7 @@
   color: #555;
 }
 
-/* Modal de confirmación */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -355,3 +355,4 @@
 .btn-confirm:hover {
   background: #e04a4f;
 }
+

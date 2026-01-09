@@ -7,7 +7,7 @@ export const routes: Routes = [
     path: '',
     component: LandingPageComponent,
   },
-  // Autenticación
+ 
   {
     path: 'login',
     loadComponent: () => import('./pages/login/login.component').then((m) => m.LoginComponent),
@@ -17,7 +17,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/register/register.component').then((m) => m.RegisterComponent),
   },
-  // Rutas protegidas
+ 
   {
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.DashboardComponent),
@@ -53,3 +53,4 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
 ];
+

@@ -1,4 +1,4 @@
-@import '../../../assets/scss/variables';
+@import '../../../../../assets/scss/variables';
 
 .hero {
   position: relative;
@@ -14,7 +14,7 @@
     position: relative;
     z-index: 10;
     text-align: center;
-    max-width: 720px; // ajusta saltos de línea al diseño
+    max-width: 720px;
     display: flex;
     flex-direction: column;
     gap: $spacing-lg;
@@ -56,7 +56,7 @@
   }
 
   &__cta {
-    background-color: $primary-color; // botón púrpura
+    background-color: $primary-color;
     color: $text-light;
     border: none;
     padding: 1.5rem 4rem;
@@ -90,7 +90,6 @@
     }
   }
 
-  // Elementos decorativos
   &__decoration {
     position: absolute;
     border-radius: 50%;
@@ -118,3 +117,4 @@
     }
   }
 }
+

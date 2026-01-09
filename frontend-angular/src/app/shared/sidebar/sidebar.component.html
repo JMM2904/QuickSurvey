@@ -7,8 +7,8 @@
 <nav class="sidebar" [class.open]="sidebarOpen" (click)="closeSidebar()">
   <div class="sidebar-header">
     <h1 class="logo">
-      <span class="logo-icon">○</span>
-      QuickSurvey
+      <img src="assets/images/logo.svg" alt="QuickSurvey" class="logo-icon" />
+      <span>QuickSurvey</span>
     </h1>
   </div>
 
@@ -82,3 +82,4 @@
   </div>
 </nav>
 <div class="sidebar-backdrop" *ngIf="sidebarOpen" (click)="closeSidebar()"></div>
+

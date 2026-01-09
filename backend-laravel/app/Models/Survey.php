@@ -19,27 +19,22 @@ class Survey extends Model
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Get the user that owns the survey.
-     */
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the options for the survey.
-     */
+    
     public function options(): HasMany
     {
         return $this->hasMany(SurveyOption::class);
     }
 
-    /**
-     * Get the votes for the survey.
-     */
+    
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
     }
 }
+

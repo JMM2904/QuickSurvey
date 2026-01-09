@@ -6,7 +6,7 @@
   z-index: 100;
   background: linear-gradient(180deg, #f4f6fb 0%, #eef1f7 100%);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  padding: $spacing-lg 0; // más aire vertical
+  padding: $spacing-lg 0;
 
   @media (max-width: $breakpoint-tablet) {
     padding: $spacing-sm 0;
@@ -72,7 +72,7 @@
 
   &__link {
     font-family: $font-primary;
-    font-size: 1.125rem; // enlaces más grandes (~18px)
+    font-size: 1.125rem;
     font-weight: 500;
     color: $primary-color;
     text-decoration: none;
@@ -82,7 +82,7 @@
 
     &:hover {
       color: darken($primary-color, 10%);
-      text-decoration: none; // sin subrayado en hover
+      text-decoration: none;
     }
 
     @media (max-width: $breakpoint-tablet) {
@@ -102,7 +102,7 @@
   &__actions {
     display: flex;
     align-items: center;
-    gap: $spacing-xl; // mayor separación entre enlaces
+    gap: $spacing-xl;
     flex-shrink: 0;
 
     @media (max-width: $breakpoint-tablet) {
@@ -110,3 +110,4 @@
     }
   }
 }
+

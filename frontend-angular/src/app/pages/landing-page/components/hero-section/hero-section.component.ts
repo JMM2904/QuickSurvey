@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-hero-section',
@@ -13,8 +13,8 @@ export class HeroSectionComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   startSurvey() {
-    // Si está autenticado, ir a dashboard
-    // Si no está autenticado, ir a login
+   
+   
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/dashboard']);
     } else {
@@ -22,3 +22,4 @@ export class HeroSectionComponent {
     }
   }
 }
+

@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-/* Main Content Styles */
+
 .main-content {
   flex: 1;
   margin-left: 280px;
@@ -13,14 +13,14 @@
   transition: margin-left 0.3s ease;
 }
 
-/* Desktop */
+
 @media (min-width: 769px) {
   .main-content {
     margin-left: 280px;
   }
 }
 
-/* Mobile/Tablet */
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
@@ -50,7 +50,7 @@
   padding: 48px 32px;
 }
 
-/* Header Styles */
+
 .dashboard-header {
   margin-bottom: 48px;
 }
@@ -68,7 +68,7 @@
   margin: 0;
 }
 
-/* Search Section */
+
 .search-section {
   margin-bottom: 48px;
 }
@@ -115,7 +115,7 @@
   color: #999;
 }
 
-/* Surveys Grid */
+
 .surveys-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -226,7 +226,7 @@
   transform: scale(0.98);
 }
 
-/* No Results Message */
+
 .no-results {
   grid-column: 1 / -1;
   text-align: center;
@@ -235,7 +235,7 @@
   font-size: 18px;
 }
 
-/* Pagination */
+
 .pagination {
   margin-top: 32px;
   display: flex;
@@ -273,7 +273,7 @@
   color: #555;
 }
 
-/* Responsive Design */
+
 @media (max-width: 1024px) {
   .sidebar {
     width: 240px;
@@ -345,3 +345,4 @@
     grid-template-columns: 1fr;
   }
 }
+

@@ -27,7 +27,7 @@ export class LoginComponent {
   onSubmit() {
     this.errorMessage = '';
 
-    // Validaciones
+   
     if (!this.email || !this.password) {
       this.errorMessage = 'Por favor completa todos los campos';
       return;
@@ -57,3 +57,4 @@ export class LoginComponent {
     return emailRegex.test(email);
   }
 }
+

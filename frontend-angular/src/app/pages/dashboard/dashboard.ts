@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Obtener usuario actual
+   
     this.authService
       .getCurrentUser()
       .pipe(takeUntil(this.destroy$))
@@ -54,10 +54,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         },
       });
 
-    // Cargar encuestas
+   
     this.loadSurveys();
 
-    // Configurar búsqueda en tiempo real con debounce
+   
     this.searchSubject
       .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((query) => {
@@ -183,3 +183,4 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
   }
 }
+

@@ -41,7 +41,7 @@ export class MySurveysComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadMySurveys();
 
-    // Configurar búsqueda en tiempo real
+   
     this.searchSubject
       .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((query) => {
@@ -189,3 +189,4 @@ export class MySurveysComponent implements OnInit, OnDestroy {
     }
   }
 }
+

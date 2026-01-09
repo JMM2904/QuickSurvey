@@ -22,7 +22,7 @@ export class NotificationService {
     const currentNotifications = this.notificationSubject.value;
     this.notificationSubject.next([...currentNotifications, notification]);
 
-    // Auto-ocultar después de 3 segundos
+   
     setTimeout(() => {
       this.hide(id);
     }, 3000);
@@ -33,3 +33,4 @@ export class NotificationService {
     this.notificationSubject.next(currentNotifications.filter((n) => n.id !== id));
   }
 }
+

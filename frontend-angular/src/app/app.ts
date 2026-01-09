@@ -11,3 +11,4 @@ import { NotificationComponent } from './shared/notification/notification.compon
 export class App {
   protected readonly title = signal('frontend-angular');
 }
+

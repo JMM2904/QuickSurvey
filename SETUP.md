@@ -1,152 +1,83 @@
-# Guía de Configuración - QuickSurvey Backend
+# Guía de Configuración - QuickSurvey
 
-## Requisitos Previos
+Esta guía cubre backend (Laravel) y frontend (Angular).
 
-1. **XAMPP** instalado (incluye Apache, MySQL y PHP)
-2. **Composer** instalado
-3. **Node.js** y **npm** instalados
+## Requisitos
 
-## Pasos de Configuración
+- PHP 8.2+ y Composer 2
+- Node.js 20+ y npm
+- MySQL 8.x (local o remoto)
 
-### 1. Crear la base de datos en MySQL
+## Variables de entorno (.env en backend-laravel)
 
-Abre phpMyAdmin (http://localhost/phpmyadmin) y ejecuta el siguiente SQL:
+Duplica `.env.example` a `.env` y ajusta:
 
-```sql
-CREATE DATABASE IF NOT EXISTS quicksurvey CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
+APP_NAME=QuickSurvey
+APP_URL=http://127.0.0.1:8000
 
-O usa la línea de comandos de MySQL:
-
-```bash
-mysql -u root -p < db/QuickSurvey.sql
-```
-
-### 2. Instalar dependencias de PHP
-
-```bash
-cd backend-laravel
-composer install
-```
-
-### 3. Generar clave de aplicación
-
-```bash
-php artisan key:generate
-```
-
-### 4. Ejecutar las migraciones
-
-```bash
-php artisan migrate --seed
-```
-
-Esto creará todas las tablas y agregará datos de prueba.
-
-### 5. Instalar dependencias de Node.js
-
-```bash
-npm install
-```
-
-### 6. Compilar assets (CSS y JS)
-
-```bash
-npm run build
-```
-
-O para desarrollo con watch:
-
-```bash
-npm run dev
-```
-
-### 7. Iniciar el servidor
-
-En una terminal:
-
-```bash
-php artisan serve
-```
-
-El servidor estará disponible en `http://localhost:8000`
-
-En otra terminal (para compilación en tiempo real):
-
-```bash
-npm run dev
-```
-
-## Verificación
-
-Para verificar que todo está funcionando:
-
-1. Abre http://localhost:8000
-2. Deberías ver la página de bienvenido de Laravel
-
-## Estructura de la Base de Datos
-
-### Tablas Creadas:
-
-- **users**: Almacena los usuarios registrados
-- **surveys**: Almacena las encuestas creadas
-- **survey_options**: Opciones de respuesta de cada encuesta
-- **votes**: Votos/respuestas de los usuarios
-- **cache**: Caché de la aplicación
-- **jobs**: Cola de trabajos
-
-## Datos de Prueba
-
-El seeder crea automáticamente:
-
-- **3 usuarios de prueba**
-- **2 encuestas de ejemplo**
-- **Votos de prueba** en ambas encuestas
-
-Credenciales de prueba:
-- Email: `juan@example.com` (Contraseña: creada por el factory)
-- Email: `maria@example.com`
-- Email: `carlos@example.com`
-
-## Problemas Comunes
-
-### Error: "No database selected"
-Verifica que la base de datos `quicksurvey` existe y que tu `.env` tiene:
-```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
 DB_DATABASE=quicksurvey
 DB_USERNAME=root
 DB_PASSWORD=
+
+SANCTUM_STATEFUL_DOMAINS=127.0.0.1:4200,localhost:4200
+SESSION_DOMAIN=127.0.0.1
 ```
 
-### Error: "SQLSTATE[HY000] [2002]"
-MySQL no está corriendo. Inicia XAMPP y asegúrate de que MySQL está activo.
+## Backend (Laravel)
 
-### Migraciones no se ejecutan
-Ejecuta:
-```bash
-php artisan migrate:refresh --seed
+```powershell
+cd backend-laravel
+composer install
+copy .env.example .env   # si no existe .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
 ```
 
-## Comandos Útiles
+- URL por defecto: http://127.0.0.1:8000
+- Si ves “Undefined method” tras mover código: `composer dump-autoload`
 
-```bash
-# Ver el estado de las migraciones
+## Frontend (Angular)
+
+```powershell
+cd frontend-angular
+npm install
+npm run start
+```
+
+- URL por defecto: http://127.0.0.1:4200
+- La app llama al backend en `http://127.0.0.1:8000` (ajusta el entorno si cambias el puerto/host).
+
+## Datos de ejemplo
+
+- `php artisan migrate --seed` crea usuarios, encuestas y votos de prueba.
+- Reejecutar desde cero: `php artisan migrate:fresh --seed`
+
+## Comandos útiles
+
+```powershell
+# Backend
+php artisan test
 php artisan migrate:status
-
-# Deshacer todas las migraciones
-php artisan migrate:reset
-
-# Rehacer todas las migraciones
-php artisan migrate:refresh
-
-# Ejecutar solo el seeder
 php artisan db:seed
+
+# Frontend
+npm run build     # build de producción
+npm run lint      # linting (si está configurado)
 ```
 
-## Próximos Pasos
+## Problemas comunes
 
-Una vez que todo esté configurado:
+- Error de conexión MySQL: revisa DB\_\* en .env y que MySQL esté ejecutando.
+- “No such file or directory .env”: copia `.env.example` y vuelve a `php artisan key:generate`.
+- El backend no arranca: usa `php artisan serve` (no `server`).
+- Cambios no reflejados en clases: `composer dump-autoload`.
 
-1. **API Endpoints**: Crear controladores para CRUD de encuestas
-2. **Autenticación**: Implementar sistema de login/registro
-3. **Frontend Angular**: Conectar con los endpoints de la API
+## Limpieza opcional
+
+- Cache/config: `php artisan optimize:clear`
+- Dependencias frontend corruptas: borrar `node_modules` y `package-lock.json`, luego `npm install`.

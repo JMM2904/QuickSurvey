@@ -1,4 +1,4 @@
-/* Global Styles */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap');
 
@@ -20,7 +20,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Scrollbar Styling */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -39,12 +39,12 @@ body {
   background: #4008e6;
 }
 
-/* Smooth scrolling */
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Link styles */
+
 a {
   color: #5112ff;
   text-decoration: none;
@@ -55,13 +55,13 @@ a:hover {
   color: #4008e6;
 }
 
-/* Button reset */
+
 button {
   font-family: inherit;
   cursor: pointer;
 }
 
-/* Input styles */
+
 input,
 textarea,
 select {
@@ -69,14 +69,14 @@ select {
   font-size: inherit;
 }
 
-/* Responsive typography */
+
 @media (max-width: 768px) {
   body {
     font-size: 14px;
   }
 }
 
-/* Utility classes */
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -94,3 +94,4 @@ select {
   white-space: nowrap;
   border-width: 0;
 }
+

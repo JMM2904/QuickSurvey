@@ -77,7 +77,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   loadSurveys(): void {
-    // Cargar estadísticas reales de la base de datos
+   
     this.surveyService
       .getAdminStats()
       .pipe(takeUntil(this.destroy$))
@@ -92,7 +92,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         },
       });
 
-    // Cargar lista de encuestas para la tabla
+   
     this.surveyService
       .getAdminSurveys()
       .pipe(takeUntil(this.destroy$))
@@ -200,3 +200,4 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     return count === 1 ? 'voto' : 'votos';
   }
 }
+

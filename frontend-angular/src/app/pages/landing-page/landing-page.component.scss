@@ -3,15 +3,15 @@
 .landing-page {
   display: flex;
   flex-direction: column;
-  height: 100vh; // ocupa toda la pantalla
-  overflow: hidden; // desactiva scroll solo en landing
+  min-height: 100vh;
+  overflow-y: auto;
 
   app-navbar {
     flex-shrink: 0;
   }
 
   app-hero-section {
-    flex-grow: 1;
+    flex-shrink: 0;
   }
 
   app-footer {
@@ -19,3 +19,4 @@
     margin-top: auto;
   }
 }
+

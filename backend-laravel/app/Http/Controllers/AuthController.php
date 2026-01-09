@@ -59,7 +59,7 @@ class AuthController extends Controller
             ]);
         }
 
-        // Eliminar todos los tokens anteriores del usuario
+       
         $user->tokens()->delete();
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -84,3 +84,4 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 }
+

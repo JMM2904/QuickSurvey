@@ -188,3 +188,4 @@ export class NotificationComponent implements OnInit {
     this.notificationService.hide(id);
   }
 }
+

@@ -29,14 +29,14 @@ export class CreateSurveyComponent {
   activeRoute: string = 'crear';
 
   availableColors: string[] = [
-    '#ff0000', // Rojo
-    '#0000ff', // Azul
-    '#00ff00', // Verde
-    '#ffff00', // Amarillo
-    '#ff00ff', // Magenta
-    '#00ffff', // Cyan
-    '#ff8800', // Naranja
-    '#8800ff', // Morado
+    '#ff0000',
+    '#0000ff',
+    '#00ff00',
+    '#ffff00',
+    '#ff00ff',
+    '#00ffff',
+    '#ff8800',
+    '#8800ff',
   ];
 
   constructor(
@@ -56,7 +56,7 @@ export class CreateSurveyComponent {
   }
 
   addOption(): void {
-    // Asignar un color que no se haya usado todavía
+   
     const usedColors = this.options.map((opt) => opt.color);
     const availableColor =
       this.availableColors.find((color) => !usedColors.includes(color)) || this.availableColors[0];
@@ -74,7 +74,7 @@ export class CreateSurveyComponent {
   }
 
   createSurvey(): void {
-    // Validar formulario
+   
     if (!this.title.trim()) {
       this.notificationService.show('Por favor, ingresa un título para la encuesta', 'error');
       return;
@@ -91,7 +91,7 @@ export class CreateSurveyComponent {
       return;
     }
 
-    // Crear encuesta
+   
     const surveyData: any = {
       title: this.title,
       description: this.description || null,
@@ -114,3 +114,4 @@ export class CreateSurveyComponent {
     });
   }
 }
+

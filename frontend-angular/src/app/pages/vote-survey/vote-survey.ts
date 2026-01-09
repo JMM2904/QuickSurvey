@@ -43,7 +43,7 @@ export class VoteSurveyComponent implements OnInit, OnDestroy {
           this.loadSurvey(surveyId);
         },
         error: () => {
-          // Si falla la carga del usuario, igualmente intentamos cargar la encuesta
+         
           this.loadSurvey(surveyId);
         },
       });
@@ -74,7 +74,7 @@ export class VoteSurveyComponent implements OnInit, OnDestroy {
             return;
           }
 
-          // Si ya votó, redirigir a resultados
+         
           const yaVoto =
             this.currentUser &&
             survey.options?.some((opt: any) =>
@@ -108,7 +108,7 @@ export class VoteSurveyComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.notificationService.show('¡Voto registrado exitosamente!', 'success');
-          // Redirigir a los resultados después de votar
+         
           setTimeout(() => {
             this.router.navigate(['/survey', this.survey!.id, 'results']);
           }, 1500);
@@ -122,3 +122,4 @@ export class VoteSurveyComponent implements OnInit, OnDestroy {
       });
   }
 }
+

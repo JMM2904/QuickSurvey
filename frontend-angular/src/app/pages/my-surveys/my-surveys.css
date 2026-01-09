@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-/* Main Content */
+
 .main-content {
   flex: 1;
   margin-left: 280px;
@@ -13,14 +13,14 @@
   transition: margin-left 0.3s ease;
 }
 
-/* Desktop */
+
 @media (min-width: 769px) {
   .main-content {
     margin-left: 280px;
   }
 }
 
-/* Mobile/Tablet */
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
@@ -61,7 +61,7 @@
   margin: 0;
 }
 
-/* Search Section */
+
 .search-section {
   margin-bottom: 48px;
 }
@@ -97,7 +97,7 @@
   box-shadow: 0 0 0 3px rgba(81, 18, 255, 0.1);
 }
 
-/* Surveys Grid */
+
 .surveys-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -319,7 +319,7 @@
   background-color: #eeeeee;
 }
 
-/* No Results */
+
 .no-results {
   grid-column: 1 / -1;
   text-align: center;
@@ -328,7 +328,7 @@
   font-size: 18px;
 }
 
-/* Pagination */
+
 .pagination {
   margin-top: 24px;
   display: flex;
@@ -366,7 +366,7 @@
   color: #555;
 }
 
-/* Responsive Design */
+
 @media (max-width: 1024px) {
   .sidebar {
     width: 240px;
@@ -434,3 +434,4 @@
     grid-template-columns: 1fr;
   }
 }
+

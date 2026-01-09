@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-/* Main Content */
+
 .main-content {
   flex: 1;
   margin-left: 280px;
@@ -13,7 +13,7 @@
   transition: margin-left 0.3s ease;
 }
 
-/* Desktop */
+
 @media (min-width: 769px) {
   .main-content {
     margin-left: 280px;
@@ -28,7 +28,7 @@
   }
 }
 
-/* Mobile/Tablet */
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
@@ -74,7 +74,7 @@
   margin: 0;
 }
 
-/* Results Section */
+
 .results-section {
   background-color: #ffffff;
   border-radius: 16px;
@@ -101,7 +101,7 @@
   }
 }
 
-/* Responsive Design */
+
 @media (max-width: 1024px) {
   .sidebar {
     width: 240px;
@@ -177,3 +177,4 @@
     height: 300px;
   }
 }
+
